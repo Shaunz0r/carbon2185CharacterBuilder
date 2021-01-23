@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "YDHLUhSLqYC5sEdki32YkFs5ToF1woNAM31hWQEs+GB1Hj7M/bxA5XSxKRzt0px4kNmXYZWRvBca4lvtUxZmXQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sph91\\Desktop\\Carbon2185Project\\Carbon2185CharacterCreator\\Carbon2185CharacterCreator\\Carbon2185CharacterCreator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sph91\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.11\\microsoft.netcore.app.host.win-x64.3.1.11.nupkg.sha512"
+  ],
+  "logs": []
+}

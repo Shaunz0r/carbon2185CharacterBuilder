@@ -1,0 +1,35 @@
+Weapon,Price,Damage,DamageType,Range,Ammo,Properties,Weight
+Baton,1000,1d4,Bludgeoning,N/A,N/A,Light,2
+Fireaxe,5000,1d6,Fire,20/60,N/A,Light Thrown,3
+Hammer,2000,1d4,Bludgeoning,20/60,N/A,Finesse Light Thrown,1
+Knife,2000,1d4,Piercing,20/60,N/A,Finesse Light Thrown,1
+Monoedged Katana,20000,1d8,Slashing,N/A,N/A,Finesse Ignores Resistance,1
+Phase Shift Knife,10000,1d6,Slashing,N/A,N/A,Finesse Light,3
+Phase Shift Sword,15000,1d8,Slashing,N/A,N/A,Versatile (1d10),4
+Cobra Retractable Baton,6000,1d6,Bludgeoning,N/A,N/A,Light,2
+Stun Baton,7000,1d6,Electric,N/A,N/A,Light,2
+Vibro Knife,10000,1d6,Piercing,N/A,N/A,Finesse Light,1
+21st Century Pistol,80000,2d4,Ballistic,40/100,9mm,17 shots Light,3
+Heavy Pistol,100000,2d6,Ballistic,50/150,10mm,15 Shots,4
+KMHA Heavy Pistol,120000,2d6,Ballistic,60/180,10mm,15 Shots,4
+Revolver,120000,2d8,Ballistic,40/120,10mm,6 Shots Light,3
+Black Market SMG*,80000,2d4,Ballistic,30/90,10mm,20 Shots Spray Light,3
+Kasai Corporation SMG,100000,3d4,Ballistic,40/120,10mm,40 Shots Spray Light,3
+Detroit Industries SMG,"120,000",4d4,Ballistic,40/120,10mm,40 Shots Spray,3
+Sawed-Off Shotgun*,"100,000",2d8,Ballistic,20/40,Shells,2 Shots (2 Handed),5
+Street Shotgun,"120,000",2d8,Ballistic,20/50,Shells,2 Shots (2 Handed),7
+Standard Assault Rifle,"200,000",2d8,Ballistic,60/180,5.56mm,30 Shots (2 Handed) Spray,8
+Kasai Corporation Rifle,"300,000",3d8,Ballistic,60/180,5.56mm,30 Shots (3 Handed) Spray,9
+Sniper Rifle,"250,000",2d10,Ballistic,150/600,0.308,5 Shots (2handed),9
+Advanced Sniper Rifle,"350,000",3d10,Ballistic,250/650,0.308,5 Shots (2handed),10
+Rapid Fire Shotgun,"180,000",3d8,Ballistic,20/40,Shells,4 Shots (2 Handed),10
+KMHA Combat Shotgun,"220,000",3d8,Ballistic,20/50,Shells,6 Shots (2 Handed),7
+Minigun,"100,000",2d10,Ballistic,50/100,Keg,30 Shots (2 Handed) Spray,25
+Heavy Minigun,"500,000",3d10,Ballistic,50/100,Keg,30 Shots (2 Handed) Spray,35
+Grenade Launcher,"100,000",Grenade,N/A,80/160,N/A,8 Grenades,15
+Flamethrower,"200,000",4d6,Fire,Oct-30,Tank,10 Uses (2 Handed) Spray,20
+Frag Grenade Mk I,"50,000",2d8,Piercing,60,N/A,Light Thrown,2
+Frag Grenade Mk II,"150,000",3d8,Piercing,60,N/A,Light Thrown,2
+Smoke Grenade,"75,000",N/A,N/A,60,N/A,Light Thrown,2
+Flashbang,"75,000",1d6,Psychic,60,N/A,Light Thrown,2
+EMP Grenade,"150,000",N/A,N/A,60,N/A,Light Thrown,2

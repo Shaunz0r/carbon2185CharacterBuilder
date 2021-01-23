@@ -1,0 +1,13 @@
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.csprojAssemblyReference.cache
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.AssemblyInfoInputs.cache
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.AssemblyInfo.cs
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.csproj.CoreCompileInputs.cache
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\bin\Debug\netcoreapp3.1\Carbon2185CharacterCreator.exe
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\bin\Debug\netcoreapp3.1\Carbon2185CharacterCreator.deps.json
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\bin\Debug\netcoreapp3.1\Carbon2185CharacterCreator.runtimeconfig.json
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\bin\Debug\netcoreapp3.1\Carbon2185CharacterCreator.runtimeconfig.dev.json
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\bin\Debug\netcoreapp3.1\Carbon2185CharacterCreator.dll
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\bin\Debug\netcoreapp3.1\Carbon2185CharacterCreator.pdb
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.dll
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.pdb
+C:\Users\sph91\Desktop\Carbon2185Project\Carbon2185CharacterCreator\Carbon2185CharacterCreator\obj\Debug\netcoreapp3.1\Carbon2185CharacterCreator.genruntimeconfig.cache

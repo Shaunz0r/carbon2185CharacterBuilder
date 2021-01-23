@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Carbon2185CharacterCreator/1.0.0": {
+        "runtime": {
+          "Carbon2185CharacterCreator.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Carbon2185CharacterCreator/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

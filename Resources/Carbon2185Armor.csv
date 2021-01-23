@@ -1,0 +1,17 @@
+Armor,Type,Price,AC,Strength,Stealth,DamageResistance,Weight
+Padded Jumpsuit,Light,5000,11,N/A,Disadvantage,N/A,7
+Tough Leather Jacket,Light,10000,11,N/A,N/A,N/A,10
+ZA Korp Kevlar Jacket,Light,15000,11,N/A,N/A,DR/2 Ballistic,12
+Kevlar Jacket,Light,45000,12,N/A,N/A,DR/2 Ballistic,13
+Concealable Ballistic Vest,Light,50000,13,N/A,N/A,DR/2 Ballistic,13
+Kevlar Bodysuit,Medium,30000,12,N/A,N/A,DR/2 Ballistic,18
+Heavy Concealable Vest,Medium,50000,13,N/A,N/A,DR/3 Ballistic,20
+Standard Ballistic Vest,Medium,50000,14,N/A,Disadvantage,DR/3 Ballistic,45
+Light-Duty Vest,Medium,400000,14,N/A,N/A,DR/3 Ballistic,20
+Tactical Vest,Medium,750000,15,10,Disadvantage,Res: Ballistic,40
+TCE Body Amror,Heavy,30000,14,N/A,Disadvantage,DR/3 Ballistic,40
+ZA Korp Armor,Heavy,75000,15,10,Disadvantage,Res: Ballistic,55
+Military Police Armor,Heavy,200000,17,13,Disadvantage,Res: Ballistic,60
+Battle Armor,Heavy,1500000,18,14,Disadvantage,Res: Ballistic,65
+Light Helmet,Helmet,15000,1,N/A,N/A,N/A,4
+Helmet,Helmet,30000,2,N/A,N/A,N/A,5
