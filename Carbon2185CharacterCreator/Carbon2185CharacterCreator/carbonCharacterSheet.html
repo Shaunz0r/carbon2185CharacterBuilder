@@ -11,9 +11,33 @@
 </head>
 
 <body>
+    <div class="container" id="abilityScoreContainer">
+        <h2>Ability Scores Before Origin Bonuses</h2>
+        <button id="abilityScoreButton">Roll</button>
+        <form>
+            <h2>Strength:</h2>
+            <h2 id="strengthScore">0</h2>
+            <h3 id="strengthMod">0</h3>
+            <h2>Dexterity</h2>
+            <h2 id="dexterityScore">0</h2>
+            <h3 id="dexterityMod">0</h3>
+            <h2>Constitution</h2>
+            <h2 id="constitutionScore">0</h2>
+            <h3 id="constitutionMod">0</h3>
+            <h2>Intelligence</h2>
+            <h2 id="intelligenceScore">0</h2>
+            <h3 id="intelligenceMod">0</h3>
+            <h2>Technology</h2>
+            <h2 id="technologyScore">0</h2>
+            <h3 id="technologyMod">0</h3>
+            <h2>People</h2>
+            <h2 id="peopleScore">0</h2>
+            <h3 id="peopleMod">0</h3>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     <div class="container" id="originContainer">
         <h2>Origin</h2>
-        <form>
             <label for="name">Character Name:</label>
             <input type="text" name="name" id="nameInput"><br>
             <label for="origin">Select an Origin:</label>
@@ -28,13 +52,13 @@
             <br>
             <label for="subOrigin">Select a suborigin:</label>
             <select name="subOrigin" id="subOriginSelect">
-                <option class="bandlanderSub" value="bruiser">Bruiser</options>
-                <option class="bandlanderSub" value="scavenger">Scavenger</options>
-                <option class="korporateSub" value="highFlyer">High Flyer</options>
-                <option class="korporateSub" value="sleeker">Sleeker</options>
-                <option class="synthSub" value="houstonDyna">Houston Dynamics</options>
-                <option class="synthSub" value="shenzenSolutions">Shenzen Solutions</options>
-                <option class="synthSub" value="visserRobotics">Visser Robotics</options>
+                <option class="bandlanderSub" value="bruiser">Bruiser</option>
+                <option class="bandlanderSub" value="scavenger">Scavenger</option>
+                <option class="korporateSub" value="highFlyer">High Flyer</option>
+                <option class="korporateSub" value="sleeker">Sleeker</option>
+                <option class="synthSub" value="houstonDyna">Houston Dynamics</option>
+                <option class="synthSub" value="shenzenSolutions">Shenzen Solutions</option>
+                <option class="synthSub" value="visserRobotics">Visser Robotics</option>
             </select>
             <br>
             <label for="class">Select a Class:</label>
@@ -47,7 +71,11 @@
                 <option value="scoundrel">Scoundrel</option>
             </select>
             <br>
-            <label for="background">Select a Background:</label>
+                    
+    </div>
+    
+    <div class="container" id="contractTermContainer">
+        <label for="background">Select a Background:</label>
             <select name="background" id="backgroundSelect">
                 <option value="corpDrone">Corporate Drone</option>
                 <option value="criminal">Criminal</option>
@@ -61,41 +89,11 @@
                 <option value="unskilledWorker">Unskilled Worker</option>
             </select>
             <br>
-            <label for="termsServed">Contract Terms:</label>
-            <select name="contractTerms" id="contractTermsSelect">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
+            <p>Contract Terms:</p>
+            <p id="termsServed">0</p> 
+            <p id="injury"></p>
+            <button id="addTermButton">Add Term</button>
             <br>
-            <input type="submit" value="Submit" id="originSubmit">
-        </form>
-    </div>
-    <div class="container" id="abilityScoreContainer">
-        <h2>Ability Scores Before Origin Bonuses</h2>
-        <button id="abilityScoreButton">Roll</button>
-        <form>
-            <h2>Strength:</h2>
-            <h2 id="strengthScore">0</h2>
-            <h2>Dexterity</h2>
-            <h2 id="dexterityScore">0</h2>
-            <h2>Constitution</h2>
-            <h2 id="constitutionScore">0</h2>
-            <h2>Intelligence</h2>
-            <h2 id="intelligenceScore">0</h2>
-            <h2>Technology</h2>
-            <h2 id="technologyScore">0</h2>
-            <h2>People</h2>
-            <h2 id="peopleScore">0</h2>
-            <input type="submit" value="Submit">
-        </form>
     </div>
     <div class="container" id="skillContainer">
         <form>
