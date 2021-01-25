@@ -1,17 +1,78 @@
 var characterObject;
 
 window.onload = function () {
+    //character object declaration
+    characterObject = {
+        name: charName.value,
+        origin: "",
+        subOrigin: "",
+        class: {primary: "",
+                subClass: ""},
+        wonlongBalance: 0,
+        contractTermsServed: {careers: [],
+                              terms: 0},
+        proficientSkills: [],
+        traits: []
+    };
     var rollFunction = (min, max) => {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min) + min);
+    }
+    var assignOrigin = originName => {
+        characterObject.origin = originName;
     }
     var charName = document.getElementById("nameInput");
     var charOrigin = document.getElementById("originSelect");
     var charSubOrigin = document.getElementById("subOriginSelect");
     var charClass = document.getElementById("classSelect");
     var charBackground = document.getElementById("backgroundSelect");
-    var charContractTerms = document.getElementById("contractTermsSelect");
+    
+    function assignOrigin() {
+        switch(charSubOrigin.value){
+            case "bruiserBadlander":
+                characterObject.origin = "Bruiser Badlander";
+                characterObject.speed = 30;
+                characterObject.charDexScore += 1;
+                characterObject.charStrScore += 2;
+                characterObject.proficientSkills.push("Intimidation");
+                characterObject.traits.push("bruiserPlaceholderText");
+                break;
+            case "scavengerBadlander":
+                characterObject.origin = "Scavenger Badlander";
+                characterObject.speed = 30;
+                characterObject.charDexScore += 1;
+                characterObject.charTecScore += 2;
+                characterObject.proficientSkills.push("Mechanics");
+                characterObject.traits.push("scavengerPlaceholderText");
+                break;  
+            case "gutterPunk":
+                characterObject.origin = "Gutter Punk";
+                characterObject.speed = 35;
+                characterObject.charDexScore += 1;
+                characterObject.charStrScore += 2;
+///////////////////////////TODO SELECT ORIGIN SKILL///////////////////////////////////////////////////
+                characterObject.traits.push("gutterPunkPlaceholderText");
+                break;
+            case "highFlyerKorpKid":
+                characterObject.origin = "High Flyer Korporate Kid";
+                characterObject.speed = 30;
+                characterObject.charTecScore += 1;
+                characterObject.charIntScore += 2;
+                characterObject.traits.push("HFKKPlaceholderText");
+                break;
+            case "sleekerKorpKid":
+                characterObject.origin = "Sleeker Korporate Kid";
+                characterObject.speed = 30;
+                characterObject.charTecScore += 1;
+                characterObject.charIntScore += 2;
+                characterObject.traits.push("SKKPlaceholderText");
+                break;
+               
+    };
+    function assignOrigin(originObject) {
+        characterObject
+    }
     allSkills = ["Acrobatics", "Athletics", "Bureaucracy", "Computing", "Deception", "Engineering", 
     "Gambling", "Hacking", "History", "Intimidation", "Investigation", "Mechanics", "Medicine", "Navigation", 
     "Perception", "Performance", "Persuasion", "Presence", "Religion", "Robotics", "Sense Motive", 
@@ -36,21 +97,29 @@ window.onload = function () {
         "Navigation", "Perception", "Persuasion", "Presence"];
     unskilledWorkerSkills = ["Athletics", "Computers", "Gambling", "Mechanics",
         "Perception", "Persuasion", "Sense Motive", "Vehicles (Land)"];
+    daimyoSkills = ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence", 
+    "Vehicles (Aircraft)", "Vehicles (Land)"];
+    docSkills = ["Bureaucracy", "Gambling", "History", "Mechanics", "Medicine", "Perception", 
+        "Persuasion", "Religion", "Sense Motive"];
+    enforcerSkills = ["Acrobatics", "Athletics", "Intimidation", "Navigation", "Perception", 
+    "Sense Motive", "Vehicles (Land)"];
+    hackerSkills = ["Computing", "Hacking", "Medicine", "Sense Motive", "Stealth", 
+    "Vehicles (Aircraft)", "Vehicles (Land)"];
+    investigatorSkills = ["Athletics", "Bureaucracy", "Computing", "Deception", "Gambling", "Hacking", 
+    "Intimidation", "Investigation", "Perception", "Persuasion", "Presence", "Sense Motive", "Sleight of Hand",
+    "Stealth", "Streetwise", "Tracking"];
+    scoundrelSkills = ["Acrobatics", "Athletics", "Deception", "Hacking", "Investigation", "Perception", 
+    "Performance", "Persuasion", "Religion", "Sense Motive", "Sleight of Hand", "Stealth"];
+
     charAvailableSkills = [];
-    characterObject = {
-        name: charName.value,
-        origin: charOrigin.value,
-        subOrigin: charSubOrigin.value,
-        class: charClass.value,
-        cashBalance: 0,
-        contractTermsServed: 0
-    };
+    
 
     charName.onchange = function () {
         characterObject.name = charName.value;
+        document.getElementById("nameDisplay").innerHTML = charName.value;
     }
-    charOrigin.onchange = function () {
-        characterObject.origin = this.value;
+    charOrigin.onchange = function (originName) {
+        
     }
     charSubOrigin.onchange = function () {
         characterObject.subOrigin = this.value;
@@ -78,9 +147,12 @@ window.onload = function () {
                 var injuryDC = 6
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 10000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Corporate Drone")) {
+                        characterObject.contractTermsServed.careers.push("Corporate Drone");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 10000;
                     corpDroneSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -88,7 +160,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -96,9 +168,12 @@ window.onload = function () {
                 var injuryDC = 7;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 8000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Criminal")) {
+                        characterObject.contractTermsServed.careers.push("Criminal");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 8000;
                     criminalSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -106,7 +181,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -114,9 +189,12 @@ window.onload = function () {
                 var injuryDC = 6;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(3, 13) * 6000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Entertainer")) {
+                        characterObject.contractTermsServed.careers.push("Entertainer");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(3, 13) * 6000;
                     entertainerSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -124,7 +202,7 @@ window.onload = function () {
                     });                    
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -132,9 +210,12 @@ window.onload = function () {
                 var injuryDC = 7;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 15000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Explorer")) {
+                        characterObject.contractTermsServed.careers.push("Explorer");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 15000;
                     explorerSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -142,7 +223,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -150,9 +231,12 @@ window.onload = function () {
                 var injuryDC = 5;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 9000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Laborer")) {
+                        characterObject.contractTermsServed.careers.push("Laborer")
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 9000;
                     laborerSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -160,7 +244,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -168,9 +252,12 @@ window.onload = function () {
                 var injuryDC = 7;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(3, 13) * 8000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Law Enforcement")) {
+                        characterObject.contractTermsServed.careers.push("Law Enforcement");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(3, 13) * 8000;
                     lawEnforcementSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -178,7 +265,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -186,9 +273,12 @@ window.onload = function () {
                 var injuryDC = 7;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 15000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Merchant")) {
+                        characterObject.contractTermsServed.careers.push("Merchant");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 15000;
                     merchantSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -196,7 +286,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -204,9 +294,12 @@ window.onload = function () {
                 var injuryDC = 8;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(3, 13) * 10000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Military")) {
+                        characterObject.contractTermsServed.careers.push("Military");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(3, 13) * 10000;
                     militarySkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -214,7 +307,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -222,9 +315,12 @@ window.onload = function () {
                 var injuryDC = 6;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 7000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Technician")) {
+                        characterObject.contractTermsServed.careers.push("Technician");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 7000;
                     technicianSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -232,7 +328,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
@@ -240,9 +336,12 @@ window.onload = function () {
                 var injuryDC = 4;
                 var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod/2);
                 if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed += 1;
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed;
-                    characterObject.cashBalance += rollFunction(2, 9) * 6000;
+                    characterObject.contractTermsServed.terms += 1;
+                    if (!characterObject.contractTermsServed.careers.includes("Unskilled Worker")) {
+                        characterObject.contractTermsServed.careers.push("Unskilled Worker");
+                    };
+                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                    characterObject.wonlongBalance += rollFunction(2, 9) * 6000;
                     unskilledWorkerSkills.forEach(element => {
                         if (!charAvailableSkills.includes(element)) {
                             charAvailableSkills.push(element);
@@ -250,7 +349,7 @@ window.onload = function () {
                     });
                 } else {
                     document.getElementById("injury").innerHTML = "INJURED";
-                    contractTermsButton.disabled = true;
+                    //contractTermsButton.disabled = true;
                 };
                 break;
 
