@@ -10,12 +10,13 @@ window.onload = function () {
     allSkills = ["Acrobatics", "Athletics", "Bureaucracy", "Computing", "Deception", "Engineering",
         "Gambling", "Hacking", "History", "Intimidation", "Investigation", "Mechanics", "Medicine", "Navigation",
         "Perception", "Performance", "Persuasion", "Presence", "Religion", "Robotics", "Sense Motive",
-        "Sleight of Hand", "Stealth", "Stretwise", "Tracking", "Vehicles (Aircraft)", "Vehicles (Land)"];
+        "Sleight of Hand", "Stealth", "Streetwise", "Tracking", "Vehicles (Aircraft)", "Vehicles (Land)"];
 
     var charName = document.getElementById("nameInput");
     var charOrigin = document.getElementById("originSelect");
     var charClass = document.getElementById("classSelect");
     var charBackground = document.getElementById("backgroundSelect");
+    charAvailableSkills = [];
     //character object declaration
     characterObject = {
         name: charName.value,
@@ -37,9 +38,8 @@ window.onload = function () {
     };
 
     function assignOrigin() {
-        var skillCount;
-        for (skillCount = 0; skillCount < characterObject.originSkills.length; skillCount++) {
-            characterObject.originSkills.pop()
+        for (var skillCount = 0; skillCount < charAvailableSkills.length; skillCount++) {
+            charAvailableSkills = [];
         };
         switch (charOrigin.value) {
             case "bruiserBadlander":
@@ -47,7 +47,9 @@ window.onload = function () {
                 characterObject.speed = 30;
                 characterObject.charDexScore += 1;
                 characterObject.charStrScore += 2;
-                characterObject.originSkills.push("Intimidation");
+                charAvailableSkills.push("Intimidation");
+                charAvailableSkills[0].checked = true;
+                charAvailableSkills[0].disabled = true;
                 characterObject.traits.push("bruiserPlaceholderText");
                 break;
             case "scavengerBadlander":
@@ -55,8 +57,9 @@ window.onload = function () {
                 characterObject.speed = 30;
                 characterObject.charDexScore += 1;
                 characterObject.charTecScore += 2;
-                characterObject.proficientSkills.push("Mechanics");
-                characterObject.originSkills.push("Mechanics");
+                charAvailableSkills.push("Mechanics");
+                charAvailableSkills[0].checked = true;
+                charAvailableSkills[0].disabled = true;
                 characterObject.traits.push("scavengerPlaceholderText");
                 break;
             case "gutterPunk":
@@ -132,26 +135,10 @@ window.onload = function () {
     scoundrelSkills = ["Acrobatics", "Athletics", "Deception", "Hacking", "Investigation", "Perception",
         "Performance", "Persuasion", "Religion", "Sense Motive", "Sleight of Hand", "Stealth"];
 
-    charAvailableSkills = [];
-    charAvailableSkills.onchange = function () {
-        var skillDiv = document.getElementById("skillSection");
-        for (var skillCounter = 0; skillCounter < charAvailableSkills.length; skillCounter++) {
-            var checkbox = document.createElement("input");
-            var label = document.createElement("label");
-            checkbox.type = "checkbox";
-            checkbox.value = charAvailableSkills[skillCounter];
-            skillDiv.appendChild(checkbox);
-            skillDiv.appendChild(label);
-            label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
-        };
-    };
 
     charName.onchange = function () {
         characterObject.name = charName.value;
     }
-    charOrigin.onchange = function () {
-        assignOrigin();
-    };
     charClass.onchange = function () {
         characterObject.class = this.value;
     }
@@ -439,26 +426,43 @@ window.onload = function () {
         } else {
             document.getElementById("peopleMod").innerHTML = characterObject.charPeoMod;
         };
-
+        document.getElementById("abilityButton").style = "display: block";
 
     };
+
     document.getElementById("abilityButton").onclick = function () {
         document.getElementById("abilityScoreContainer").style = "display: none";
         document.getElementById("originContainer").style = "display: block";
     };
     document.getElementById("originButton").onclick = function () {
+        assignOrigin();
         document.getElementById("originContainer").style = "display: none";
         document.getElementById("contractTermContainer").style = "display: block";
     };
     document.getElementById("careerButton").onclick = function () {
         document.getElementById("contractTermContainer").style = "display: none";
+        var skillDiv = document.getElementById("skillSection");
+        for (var skillCounter = 0; skillCounter < charAvailableSkills.length; skillCounter++) {
+            var checkbox = document.createElement("input");
+            var label = document.createElement("label");
+            checkbox.type = "checkbox";
+            checkbox.value = charAvailableSkills[skillCounter];
+            skillDiv.appendChild(checkbox);
+            skillDiv.appendChild(label);
+            label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
+        };
         document.getElementById("skillContainer").style = "display: block";
         document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
     };
-    document.getElementsByClassName("skillOption").onclick = function (event) {
-        characterObject.skillPoints -= 1;
-        if (characterObject.skillPoints === 0) {
-            document.getElementsByClassName("skillOption").disabled = true;
+    var skillOptions = document.getElementsByClassName("skillOption");
+    skillOptions.onchange = function () {
+        if (skillOptions.checked === true) {
+            characterObject.proficientSkills.push(skillOptions.value);
+            characterObject.skillPoints -= 1;
+        } else {
+            characterObject.skillPoints += 1;
+            var targetIndex = characterObject.proficientSkills.indexOf(skillOptions.value);
+            characterObject.proficientSkills.splice(targetIndex, 1);
         }
     }
 }

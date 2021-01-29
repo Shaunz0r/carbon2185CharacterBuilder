@@ -6,6 +6,12 @@
     width: fit-content;
     margin: 20px;
 }
+#abilityButton {
+    display: none;
+}
 #abilityScoreContainer {
+    display: block;
+}
+#skillSection  {
     display: block;
 }
