@@ -14,181 +14,185 @@
     <div class="container" id="abilityScoreContainer">
         <h2>Ability Scores Before Origin Bonuses</h2>
         <button id="abilityScoreButton">Roll</button>
-        <form>
-            <h2>Strength:</h2>
-            <h2 id="strengthScore">0</h2>
-            <h3 id="strengthMod">0</h3>
-            <h2>Dexterity</h2>
-            <h2 id="dexterityScore">0</h2>
-            <h3 id="dexterityMod">0</h3>
-            <h2>Constitution</h2>
-            <h2 id="constitutionScore">0</h2>
-            <h3 id="constitutionMod">0</h3>
-            <h2>Intelligence</h2>
-            <h2 id="intelligenceScore">0</h2>
-            <h3 id="intelligenceMod">0</h3>
-            <h2>Technology</h2>
-            <h2 id="technologyScore">0</h2>
-            <h3 id="technologyMod">0</h3>
-            <h2>People</h2>
-            <h2 id="peopleScore">0</h2>
-            <h3 id="peopleMod">0</h3>
-            <input type="submit" value="Submit">
-        </form>
+        <h2>Strength:</h2>
+        <h2 id="strengthScore">0</h2>
+        <h3 id="strengthMod">0</h3>
+        <h2>Dexterity</h2>
+        <h2 id="dexterityScore">0</h2>
+        <h3 id="dexterityMod">0</h3>
+        <h2>Constitution</h2>
+        <h2 id="constitutionScore">0</h2>
+        <h3 id="constitutionMod">0</h3>
+        <h2>Intelligence</h2>
+        <h2 id="intelligenceScore">0</h2>
+        <h3 id="intelligenceMod">0</h3>
+        <h2>Technology</h2>
+        <h2 id="technologyScore">0</h2>
+        <h3 id="technologyMod">0</h3>
+        <h2>People</h2>
+        <h2 id="peopleScore">0</h2>
+        <h3 id="peopleMod">0</h3>
+        <Button id="abilityButton">Finalize Ability Scores</Button>
     </div>
     <div class="container" id="originContainer">
         <h2>Origin</h2>
-            <label for="name">Character Name:</label>
-            <input type="text" name="name" id="nameInput"><br>
-            <label for="origin">Select an Origin:</label>
-            <select name="origin" id="originSelect">
-                <option value="badlander">Badlander</option>
-                <option value="gutterPunk">Gutter Punk</option>
-                <option value="korpKid">Korporate Kid</option>
-                <option value="regularJoe">Regular Joe</option>
-                <option value="synth">Synth</option>
-                <option value="wormer">Wormer</option>
-            </select>
-            <br>
-            <label for="subOrigin">Select a suborigin:</label>
-            <select name="subOrigin" id="subOriginSelect">
-                <option class="bandlanderSub" value="bruiser">Bruiser</option>
-                <option class="bandlanderSub" value="scavenger">Scavenger</option>
-                <option class="korporateSub" value="highFlyer">High Flyer</option>
-                <option class="korporateSub" value="sleeker">Sleeker</option>
-                <option class="synthSub" value="houstonDyna">Houston Dynamics</option>
-                <option class="synthSub" value="shenzenSolutions">Shenzen Solutions</option>
-                <option class="synthSub" value="visserRobotics">Visser Robotics</option>
-            </select>
-            <br>
-            <label for="class">Select a Class:</label>
-            <select name="class" id="classSelect">
-                <option value="daimyo">Daimyo</option>
-                <option value="doc">Doc</option>
-                <option value="enforcer">Enforcer</option>
-                <option value="hacker">Hacker</option>
-                <option value="investigator">Investigator</option>
-                <option value="scoundrel">Scoundrel</option>
-            </select>
-            <br>
-                    
+        <label for="name">Character Name:</label>
+        <input type="text" name="name" id="nameInput"><br>
+        <label for="origin">Origin:</label>
+        <select name="origin" id="originSelect">
+            <option>Select an Origin</option>
+
+            <option value="bruiserBadlander">Bruiser Badlander</option>
+            <option value="scavengerBadlander">Scavenger Badlander</option>
+
+            <option value="gutterPunk">Gutter Punk</option>
+
+            <option value="highFlyerKorpKid">High FLyer Korporate Kid</option>
+            <option value="sleekerKorpKid">Sleeker Korporate Kid</option>
+
+            <option value="regularJoe">Regular Joe</option>
+
+            <option value="synth">Houston Dynamics Synth</option>
+            <option value="synth">Shenzen Solutions Synth</option>
+            <option value="synth">Visser Robotics Synth</option>
+
+            <option value="wormer">Wormer</option>
+        </select><br>
+        <label for="class">Class:</label>
+        <select name="class" id="classSelect">
+            <option>Select a Class</option>
+            <option value="Daimyo">Daimyo</option>
+            <option value="Doc">Doc</option>
+            <option value="Enforcer">Enforcer</option>
+            <option value="Hacker">Hacker</option>
+            <option value="Investigator">Investigator</option>
+            <option value="Scoundrel">Scoundrel</option>
+        </select><br>
+        <Button id="originButton">Finalize Origin</Button>
+        <br>
+
     </div>
-    
+
     <div class="container" id="contractTermContainer">
-        <label for="background">Select a Background:</label>
-            <select name="background" id="backgroundSelect">
-                <option value="corpDrone">Corporate Drone</option>
-                <option value="criminal">Criminal</option>
-                <option value="entertainer">Entertainer</option>
-                <option value="explorer">Explorer</option>
-                <option value="laborer">Laborer</option>
-                <option value="lawEnforcement">Law Enforcement</option>
-                <option value="merchant">Merchant</option>
-                <option value="military">Military</option>
-                <option value="technician">Technician</option>
-                <option value="unskilledWorker">Unskilled Worker</option>
-            </select>
-            <br>
-            <p>Contract Terms:</p>
-            <p id="termsServed">0</p> 
-            <p id="injury"></p>
-            <button id="addTermButton">Add Term</button>
-            <br>
+        <label for="background">Background:</label>
+        <select name="background" id="backgroundSelect">
+            <option>Select Career</option>
+            <option value="corpDrone">Corporate Drone</option>
+            <option value="criminal">Criminal</option>
+            <option value="entertainer">Entertainer</option>
+            <option value="explorer">Explorer</option>
+            <option value="laborer">Laborer</option>
+            <option value="lawEnforcement">Law Enforcement</option>
+            <option value="merchant">Merchant</option>
+            <option value="military">Military</option>
+            <option value="technician">Technician</option>
+            <option value="unskilledWorker">Unskilled Worker</option>
+        </select>
+        <br>
+        <p>Contract Terms:</p>
+        <p id="termsServed">0</p>
+        <p id="injury"></p>
+        <button id="addTermButton">Add Term</button>
+        <br>
+        <Button id="careerButton">Finalize Career</Button>
     </div>
     <div class="container" id="skillContainer">
-        <form>
-            <label for="skillSelect">Skill Select:</label><br>
 
-            <input type="checkbox" id="skill1" name="skill1" value="acrobatics">
+        <label id="skillSelectLabel" for="skillSelect">Choose skills:</label><br>
+        <div id="skillSection">
+            <!--<input class="skillOption" type="checkbox" id="Acrobatics" name="skill" value="acrobatics">
             <label for="skill1">Acrobatics</label><br>
 
-            <input type="checkbox" id="skill2" name="skill2" value="athletics">
+            <input class="skillOption" type="checkbox" id="Athletics" name="skill" value="athletics">
             <label for="skill1">Athletics</label><br>
 
-            <input type="checkbox" id="skill3" name="skill3" value="bureaucracy">
+            <input class="skillOption" type="checkbox" id="Bureaucracy" name="skill" value="bureaucracy">
             <label for="skill1">Bureaucracy</label><br>
 
-            <input type="checkbox" id="skill4" name="skill4" value="computing">
+            <input class="skillOption" type="checkbox" id="Computing" name="skill" value="computing">
             <label for="skill1">Computing</label><br>
 
-            <input type="checkbox" id="skill5" name="skill5" value="Deception">
+            <input class="skillOption" type="checkbox" id="Deception" name="skill" value="Deception">
             <label for="skill1">Deception</label><br>
 
-            <input type="checkbox" id="skill6" name="skill6" value="engineering">
+            <input class="skillOption" type="checkbox" id="Engineering" name="skill" value="engineering">
             <label for="skill1">Engineering</label><br>
 
-            <input type="checkbox" id="skill7" name="skill7" value="gambling">
+            <input class="skillOption" type="checkbox" id="Gambling" name="skill" value="gambling">
             <label for="skill1">Gambling</label><br>
 
-            <input type="checkbox" id="skill8" name="skill8" value="hacking">
+            <input class="skillOption" type="checkbox" id="Hacking" name="skill" value="hacking">
             <label for="skill1">Hacking</label><br>
 
-            <input type="checkbox" id="skill9" name="skill9" value="history">
+            <input class="skillOption" type="checkbox" id="History" name="skill" value="history">
             <label for="skill1">History</label><br>
 
-            <input type="checkbox" id="skill10" name="skill10" value="intimidation">
+            <input class="skillOption" type="checkbox" id="Intimidation" name="skill" value="intimidation">
             <label for="skill1">Intimidation</label><br>
 
-            <input type="checkbox" id="skill11" name="skill11" value="investigation">
+            <input class="skillOption" type="checkbox" id="Investigation" name="skill" value="investigation">
             <label for="skill1">Investigation</label><br>
 
-            <input type="checkbox" id="skill12" name="skill12" value="mechanics">
+            <input class="skillOption" type="checkbox" id="Mechanics" name="skill" value="mechanics">
             <label for="skill1">Mechanics</label><br>
 
-            <input type="checkbox" id="skill13" name="skill13" value="medicine">
+            <input class="skillOption" type="checkbox" id="Medicine" name="skill" value="medicine">
             <label for="skill1">Medicine</label><br>
 
-            <input type="checkbox" id="skill14" name="skill14" value="navigation">
+            <input class="skillOption" type="checkbox" id="Navigation" name="skill" value="navigation">
             <label for="skill1">Navigation</label><br>
 
-            <input type="checkbox" id="skill15" name="skill15" value="perception">
+            <input class="skillOption" type="checkbox" id="Perception" name="skill" value="perception">
             <label for="skill1">Perception</label><br>
 
-            <input type="checkbox" id="skill16" name="skill16" value="performance">
+            <input class="skillOption" type="checkbox" id="Performance" name="skill" value="performance">
             <label for="skill1">Performance</label><br>
 
-            <input type="checkbox" id="skill17" name="skill17" value="persuasion">
+            <input class="skillOption" type="checkbox" id="Persuasion" name="skill" value="persuasion">
             <label for="skill1">Persuasion</label><br>
 
-            <input type="checkbox" id="skill18" name="skill18" value="presence">
+            <input class="skillOption" type="checkbox" id="Presence" name="skill" value="presence">
             <label for="skill1">Presence</label><br>
 
-            <input type="checkbox" id="skill19" name="skill19" value="religion">
+            <input class="skillOption" type="checkbox" id="Religion" name="skill" value="religion">
             <label for="skill1">Religion</label><br>
 
-            <input type="checkbox" id="skill20" name="skill20" value="robotics">
+            <input class="skillOption" type="checkbox" id="Robotics" name="skill" value="robotics">
             <label for="skill1">Robotics</label><br>
 
-            <input type="checkbox" id="skill21" name="skill21" value="senseMotive">
+            <input class="skillOption" type="checkbox" id="Sense Motive" name="skill" value="senseMotive">
             <label for="skill1">Sense Motive</label><br>
 
-            <input type="checkbox" id="skill22" name="skill22" value="sleightOfHand">
+            <input class="skillOption" type="checkbox" id="Sleight of Hand" name="skill" value="sleightOfHand">
             <label for="skill1">Sleight of Hand</label><br>
 
-            <input type="checkbox" id="skill23" name="skill23" value="stealth">
+            <input class="skillOption" type="checkbox" id="Stealth" name="skill" value="stealth">
             <label for="skill1">Stealth</label><br>
 
-            <input type="checkbox" id="skill24" name="skill24" value="streetwise">
+            <input class="skillOption" type="checkbox" id="Stretwise" name="skill" value="streetwise">
             <label for="skill1">Stretwise</label><br>
 
-            <input type="checkbox" id="skill25" name="skill25" value="tracking">
+            <input class="skillOption" type="checkbox" id="Tracking" name="skill" value="tracking">
             <label for="skill1">Tracking</label><br>
 
-            <input type="checkbox" id="skill26" name="skill26" value="vehiclesAircraft">
+            <input class="skillOption" type="checkbox" id="Vehicles (Aircraft)" name="skill" value="vehiclesAircraft">
             <label for="skill1">Vehicles (Aircraft)</label><br>
 
-            <input type="checkbox" id="skill27" name="skill27" value="vehiclesLand">
-            <label for="skill1">Vehicles (Land)</label><br>
-            <input type="submit" value="Submit" id="skillSubmit">
-        
-        </form>
+            <input class="skillOption" type="checkbox" id="Vehicles (Land)" name="skill" value="vehiclesLand">
+            <label for="skill1">Vehicles (Land)</label><br>-->
+        </div>
+        <Button id="submitButton">Finalize Character</Button>
+
     </div>
     <div class="container" id="sheetContainer">
         <div class="container" id="nameContainer">
-            <h2>Character Name:<h2 id="nameDisplay"></h2></h2>
+            <h2>Character Name:<h2 id="nameDisplay"></h2>
+            </h2>
         </div>
         <div class="container" id="characterBioContainer">
-            <p class="infoDisplay">Class & Level</p><p class="infoDisplay">Origin</p><p class="infoDisplay">Experience Points</p>            
+            <p class="infoDisplay">Class & Level</p>
+            <p class="infoDisplay">Origin</p>
+            <p class="infoDisplay">Experience Points</p>
         </div>
         <div class="container" id="sheetAbilityScoreContainer">
 
