@@ -447,6 +447,7 @@ window.onload = function () {
             var label = document.createElement("label");
             checkbox.type = "checkbox";
             checkbox.value = charAvailableSkills[skillCounter];
+            checkbox.className = "skillOption";
             skillDiv.appendChild(checkbox);
             skillDiv.appendChild(label);
             label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
@@ -454,17 +455,33 @@ window.onload = function () {
         document.getElementById("skillContainer").style = "display: block";
         document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
     };
-    var skillOptions = document.getElementsByClassName("skillOption");
-    skillOptions.onchange = function () {
-        if (skillOptions.checked === true) {
-            characterObject.proficientSkills.push(skillOptions.value);
-            characterObject.skillPoints -= 1;
-        } else {
-            characterObject.skillPoints += 1;
-            var targetIndex = characterObject.proficientSkills.indexOf(skillOptions.value);
-            characterObject.proficientSkills.splice(targetIndex, 1);
+    skillDiv = document.getElementById("skillContainer")
+    skillOptions = skillDiv.getElementsByTagName("INPUT");
+    var getSelectedSkills = () => {
+        var selectedSkills = new Array();
+        for (var i = 0; i < skillOptions.length; i++) {
+            if (skillOptions[i].checked) {
+                selectedSkills.push(skillOptions[i].value);
+                console.log(`added ${skillOptions[i].value} to selectedSkills`)
+            } 
         }
+        selectedSkills.forEach(skill => {
+            characterObject.proficientSkills.push(skill);
+        })
     }
+    document.getElementById("submitButton").onclick = getSelectedSkills;
+    
+    /* characterObject.proficientSkills.push(skillOptions.value);
+     characterObject.skillPoints -= 1;
+     document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
+ 
+     characterObject.skillPoints += 1;
+     var targetIndex = characterObject.proficientSkills.indexOf(skillOptions.value);
+     characterObject.proficientSkills.splice(targetIndex, 1);
+     document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
+ */
+
+
 }
 //////////////////////////TODO: FIX SKILLPOINTS & SKILL SELECTION///////////////////////////////////
 
