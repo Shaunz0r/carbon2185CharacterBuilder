@@ -36,12 +36,13 @@ window.onload = function () {
         traits: [],
         skillPoints: 0
     };
-
+     //apply starting stats and features for each origin
     function assignOrigin() {
         for (var skillCount = 0; skillCount < charAvailableSkills.length; skillCount++) {
             charAvailableSkills = [];
         };
         switch (charOrigin.value) {
+           
             case "bruiserBadlander":
                 characterObject.origin = "Bruiser Badlander";
                 characterObject.speed = 30;
@@ -93,6 +94,7 @@ window.onload = function () {
 
 
         };
+        //calculate modifiers from scores
         characterObject.charStrMod = Math.floor((characterObject.charStrScore - 10) / 2);
         characterObject.charDexMod = Math.floor((characterObject.charDexScore - 10) / 2);
         characterObject.charConMod = Math.floor((characterObject.charConScore - 10) / 2);
@@ -100,7 +102,7 @@ window.onload = function () {
         characterObject.charTecMod = Math.floor((characterObject.charTecScore - 10) / 2);
         characterObject.charPeoMod = Math.floor((characterObject.charPeoScore - 10) / 2);
     };
-
+    //skill array for each career
     corpDroneSkills = ["Bureaucracy", "Computing", "Deception", "Engineering",
         "Hacking", "Perception", "Persuasion", "Sense Motive"];
     criminalSkills = ["Deception", "Hacking", "Intimidation", "Performance",
@@ -145,6 +147,8 @@ window.onload = function () {
 
 
     var contractTermsButton = document.getElementById("addTermButton");
+    //function to assign contract term - rolls for injury, adds skills and wages if passed
+    //prevents further contract terms if failed
     contractTermsButton.onclick = function () {
         switch (charBackground.value) {
             case "corpDrone":
@@ -375,6 +379,7 @@ window.onload = function () {
 
     };
     var rollButton = document.getElementById("abilityScoreButton");
+    //Ability Score generation
     rollButton.onclick = function () {
         characterObject.charStrScore = rollFunction(2, 13) + 5;
         document.getElementById("strengthScore").innerHTML = characterObject.charStrScore;
@@ -429,18 +434,22 @@ window.onload = function () {
         document.getElementById("abilityButton").style = "display: block";
 
     };
-
+    //switch from ability score screen to origin screen
     document.getElementById("abilityButton").onclick = function () {
         document.getElementById("abilityScoreContainer").style = "display: none";
         document.getElementById("originContainer").style = "display: block";
     };
+    //switch from origin screen to career screen
     document.getElementById("originButton").onclick = function () {
         assignOrigin();
         document.getElementById("originContainer").style = "display: none";
         document.getElementById("contractTermContainer").style = "display: block";
     };
+    //hide career screen
+    
     document.getElementById("careerButton").onclick = function () {
         document.getElementById("contractTermContainer").style = "display: none";
+    //create checkbox element for each skill in availableSkills
         var skillDiv = document.getElementById("skillSection");
         for (var skillCounter = 0; skillCounter < charAvailableSkills.length; skillCounter++) {
             var checkbox = document.createElement("input");
@@ -452,25 +461,63 @@ window.onload = function () {
             skillDiv.appendChild(label);
             label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
         };
+    //display skill choice screen
         document.getElementById("skillContainer").style = "display: block";
         document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
     };
-    skillDiv = document.getElementById("skillContainer")
-    skillOptions = skillDiv.getElementsByTagName("INPUT");
+    //limit number of skill choices to skillPoints variable (STILL BROKEN)
+    var skillDiv = document.getElementById("skillContainer")
+    var skillOptions = skillDiv.getElementsByTagName("INPUT");
+    //returns all checkboxes to a nodeList
+    var skillOptions2 = document.querySelectorAll("input[type=checkbox]");
+    //test variable
+    var globalSkillPoints = 2;
+    //run function on each checkbox
+    skillOptions2.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function (e) {
+            //check if box is checked, if so decrement skillPoints, otherwise increment
+            if (e.target.checked) {
+                console.log("box checked")
+                globalSkillPoints--;
+            } else {
+                console.log("box unchecked")
+                globalSkillPoints++;
+                enableAllCheckboxes(skillOptions2);
+            }
+
+            if (globalSkillPoints == 0) {
+                disableRemainingCheckboxes(skillOptions2);
+            }
+        });
+    });
+    function enableAllCheckboxes(checkboxes) {
+        checkboxes.forEach(function (c) {
+            c.disabled = false;
+        });
+    }
+
+    function disableRemainingCheckboxes(checkboxes) {
+        checkboxes.forEach(function (c) {
+            if (!c.checked) {
+                c.disabled = true;
+            }
+        });
+    }
+    //sends all selected skills to the proficientSkills array in characterObject
     var getSelectedSkills = () => {
         var selectedSkills = new Array();
         for (var i = 0; i < skillOptions.length; i++) {
             if (skillOptions[i].checked) {
                 selectedSkills.push(skillOptions[i].value);
                 console.log(`added ${skillOptions[i].value} to selectedSkills`)
-            } 
+            }
         }
         selectedSkills.forEach(skill => {
             characterObject.proficientSkills.push(skill);
         })
     }
     document.getElementById("submitButton").onclick = getSelectedSkills;
-    
+
     /* characterObject.proficientSkills.push(skillOptions.value);
      characterObject.skillPoints -= 1;
      document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
@@ -483,6 +530,6 @@ window.onload = function () {
 
 
 }
-//////////////////////////TODO: FIX SKILLPOINTS & SKILL SELECTION///////////////////////////////////
+//////////////////////////TODO: FIX SKILLPOINTS///////////////////////////////////
 
 
