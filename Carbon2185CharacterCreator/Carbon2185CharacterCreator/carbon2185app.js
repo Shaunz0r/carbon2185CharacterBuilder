@@ -23,7 +23,8 @@ window.onload = function () {
         origin: "",
         class: {
             primary: "",
-            subClass: ""
+            subClass: "",
+            features: []
         },
         wonlongBalance: 0,
         contractTermsServed: {
@@ -49,8 +50,7 @@ window.onload = function () {
                 characterObject.charDexScore += 1;
                 characterObject.charStrScore += 2;
                 charAvailableSkills.push("Intimidation");
-                charAvailableSkills[0].checked = true;
-                charAvailableSkills[0].disabled = true;
+                characterObject.proficientSkills.push("Intimidation")
                 characterObject.traits.push("bruiserPlaceholderText");
                 break;
             case "scavengerBadlander":
@@ -59,8 +59,7 @@ window.onload = function () {
                 characterObject.charDexScore += 1;
                 characterObject.charTecScore += 2;
                 charAvailableSkills.push("Mechanics");
-                charAvailableSkills[0].checked = true;
-                charAvailableSkills[0].disabled = true;
+                characterObject.proficientSkills.push("Mechanics")
                 characterObject.traits.push("scavengerPlaceholderText");
                 break;
             case "gutterPunk":
@@ -91,7 +90,16 @@ window.onload = function () {
                 characterObject.traits.push("SKKPlaceholderText");
                 break;
             case "regularJoe":
-
+                characterObject.origin = "Regular Joe";
+                characterObject.speed = 30;
+                characterObject.skillPoints += 2;
+                allSkills.forEach(skill => {
+                    if (!charAvailableSkills.includes(skill)) {
+                        charAvailableSkills.push(skill);
+                    };
+                });
+                characterObject.charPeoScore += 2;
+                //Ability Score increase choice
 
         };
         //calculate modifiers from scores
@@ -123,6 +131,7 @@ window.onload = function () {
         "Navigation", "Perception", "Persuasion", "Presence"];
     unskilledWorkerSkills = ["Athletics", "Computers", "Gambling", "Mechanics",
         "Perception", "Persuasion", "Sense Motive", "Vehicles (Land)"];
+    //skills for each character class
     daimyoSkills = ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence",
         "Vehicles (Aircraft)", "Vehicles (Land)"];
     docSkills = ["Bureaucracy", "Gambling", "History", "Mechanics", "Medicine", "Perception",
@@ -157,6 +166,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Corporate Drone")) {
                         characterObject.contractTermsServed.careers.push("Corporate Drone");
                     };
@@ -179,6 +189,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Criminal")) {
                         characterObject.contractTermsServed.careers.push("Criminal");
                     };
@@ -201,6 +212,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Entertainer")) {
                         characterObject.contractTermsServed.careers.push("Entertainer");
                     };
@@ -223,6 +235,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Explorer")) {
                         characterObject.contractTermsServed.careers.push("Explorer");
                     };
@@ -245,6 +258,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Laborer")) {
                         characterObject.contractTermsServed.careers.push("Laborer")
                     };
@@ -267,6 +281,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Law Enforcement")) {
                         characterObject.contractTermsServed.careers.push("Law Enforcement");
                     };
@@ -289,6 +304,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Merchant")) {
                         characterObject.contractTermsServed.careers.push("Merchant");
                     };
@@ -311,6 +327,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Military")) {
                         characterObject.contractTermsServed.careers.push("Military");
                     };
@@ -333,6 +350,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Technician")) {
                         characterObject.contractTermsServed.careers.push("Technician");
                     };
@@ -355,6 +373,7 @@ window.onload = function () {
                 if (injuryRoll > injuryDC) {
                     characterObject.contractTermsServed.terms += 1;
                     characterObject.skillPoints += 1;
+                    characterObject.traits.push("Language/tool proficiency");
                     if (!characterObject.contractTermsServed.careers.includes("Unskilled Worker")) {
                         characterObject.contractTermsServed.careers.push("Unskilled Worker");
                     };
@@ -445,8 +464,7 @@ window.onload = function () {
         document.getElementById("originContainer").style = "display: none";
         document.getElementById("contractTermContainer").style = "display: block";
     };
-    //hide career screen
-    
+    //hide career screen, show skill screen, skill selection
     document.getElementById("careerButton").onclick = function () {
         document.getElementById("contractTermContainer").style = "display: none";
     //create checkbox element for each skill in availableSkills
@@ -455,8 +473,12 @@ window.onload = function () {
             var checkbox = document.createElement("input");
             var label = document.createElement("label");
             checkbox.type = "checkbox";
-            checkbox.value = charAvailableSkills[skillCounter];
             checkbox.className = "skillOption";
+            checkbox.value = charAvailableSkills[skillCounter];
+            if (characterObject.proficientSkills.includes(checkbox.value)) {
+                checkbox.checked = true;
+                checkbox.disabled = true;
+            }
             skillDiv.appendChild(checkbox);
             skillDiv.appendChild(label);
             label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
@@ -464,35 +486,37 @@ window.onload = function () {
     //display skill choice screen
         document.getElementById("skillContainer").style = "display: block";
         document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
-    };
-    //limit number of skill choices to skillPoints variable (STILL BROKEN)
-    var skillDiv = document.getElementById("skillContainer")
-    var skillOptions = skillDiv.getElementsByTagName("INPUT");
+        //limit number of skill choices to skillPoints variable (STILL BROKEN)
+    skillDiv = document.getElementById("skillContainer")
+    skillOptions = skillDiv.getElementsByTagName("INPUT");
     //returns all checkboxes to a nodeList
-    var skillOptions2 = document.querySelectorAll("input[type=checkbox]");
-    //test variable
-    var globalSkillPoints = 2;
+    checkboxes = document.querySelectorAll("input[type=checkbox]");
+    label = document.getElementById("skillSelectLabel");
     //run function on each checkbox
-    skillOptions2.forEach(function (checkbox) {
+    checkboxes.forEach(function (checkbox) {
         checkbox.addEventListener('change', function (e) {
             //check if box is checked, if so decrement skillPoints, otherwise increment
             if (e.target.checked) {
                 console.log("box checked")
-                globalSkillPoints--;
+                characterObject.skillPoints--;
             } else {
                 console.log("box unchecked")
-                globalSkillPoints++;
-                enableAllCheckboxes(skillOptions2);
+                characterObject.skillPoints++;
+                enableAllCheckboxes(checkboxes);
             }
 
-            if (globalSkillPoints == 0) {
-                disableRemainingCheckboxes(skillOptions2);
+            if (characterObject.skillPoints == 0) {
+                disableRemainingCheckboxes(checkboxes);
             }
+            label.innerText = characterObject.skillPoints + " points remaining";
         });
     });
     function enableAllCheckboxes(checkboxes) {
         checkboxes.forEach(function (c) {
             c.disabled = false;
+            if (characterObject.proficientSkills.includes(c.value)) {
+                c.disabled = true;
+            }
         });
     }
 
@@ -501,8 +525,11 @@ window.onload = function () {
             if (!c.checked) {
                 c.disabled = true;
             }
+            
         });
     }
+    };
+    
     //sends all selected skills to the proficientSkills array in characterObject
     var getSelectedSkills = () => {
         var selectedSkills = new Array();
@@ -517,19 +544,7 @@ window.onload = function () {
         })
     }
     document.getElementById("submitButton").onclick = getSelectedSkills;
-
-    /* characterObject.proficientSkills.push(skillOptions.value);
-     characterObject.skillPoints -= 1;
-     document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
- 
-     characterObject.skillPoints += 1;
-     var targetIndex = characterObject.proficientSkills.indexOf(skillOptions.value);
-     characterObject.proficientSkills.splice(targetIndex, 1);
-     document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
- */
-
-
 }
-//////////////////////////TODO: FIX SKILLPOINTS///////////////////////////////////
+//////////////////////////TODO: REGULAR JOE AS CHOICES///////////////////////////////////
 
 
