@@ -26,6 +26,7 @@ window.onload = function () {
             subClass: "",
             features: []
         },
+        armorClass: 10 + charDexMod,
         wonlongBalance: 0,
         contractTermsServed: {
             careers: [],
@@ -37,13 +38,13 @@ window.onload = function () {
         traits: [],
         skillPoints: 0
     };
-     //apply starting stats and features for each origin
+    //apply starting stats and features for each origin
     function assignOrigin() {
         for (var skillCount = 0; skillCount < charAvailableSkills.length; skillCount++) {
             charAvailableSkills = [];
         };
         switch (charOrigin.value) {
-           
+
             case "bruiserBadlander":
                 characterObject.origin = "Bruiser Badlander";
                 characterObject.speed = 30;
@@ -99,7 +100,35 @@ window.onload = function () {
                     };
                 });
                 characterObject.charPeoScore += 2;
+                characterObject.traits.push("RegJoe placeholder text");
                 //Ability Score increase choice
+                break;
+            case "houstonDynamicsSynth":
+                characterObject.origin = "Houston Dynamics Synth";
+                characterObject.speed = 30;
+                characterObject.charConScore += 2;
+                characterObject.charDexScore += 2;
+                characterObject.armorClass = 13 + charDexMod;
+                characterObject.traits.push("HDSynth placeholder text");
+                break;
+            case "shenzenSolutionsSynth":
+                characterObject.origin = "Houston Dynamics Synth";
+                characterObject.speed = 30;
+                characterObject.charConScore += 2;
+                characterObject.charPeoScore += 1;
+                characterObject.armorClass = 13 + charDexMod;
+                characterObject.traits.push("SSSynth placeholder text");
+                break;
+            case "visserRoboticsSynth":
+                characterObject.origin = "Houston Dynamics Synth";
+                characterObject.speed = 30;
+                characterObject.charConScore += 2;
+                characterObject.charStrcore += 1;
+                characterObject.armorClass = 13 + charDexMod;
+                characterObject.traits.push("VRSynth placeholder text");
+                break;
+
+
 
         };
         //calculate modifiers from scores
@@ -467,7 +496,7 @@ window.onload = function () {
     //hide career screen, show skill screen, skill selection
     document.getElementById("careerButton").onclick = function () {
         document.getElementById("contractTermContainer").style = "display: none";
-    //create checkbox element for each skill in availableSkills
+        //create checkbox element for each skill in availableSkills
         var skillDiv = document.getElementById("skillSection");
         for (var skillCounter = 0; skillCounter < charAvailableSkills.length; skillCounter++) {
             var checkbox = document.createElement("input");
@@ -483,53 +512,53 @@ window.onload = function () {
             skillDiv.appendChild(label);
             label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
         };
-    //display skill choice screen
+        //display skill choice screen
         document.getElementById("skillContainer").style = "display: block";
         document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
         //limit number of skill choices to skillPoints variable (STILL BROKEN)
-    skillDiv = document.getElementById("skillContainer")
-    skillOptions = skillDiv.getElementsByTagName("INPUT");
-    //returns all checkboxes to a nodeList
-    checkboxes = document.querySelectorAll("input[type=checkbox]");
-    label = document.getElementById("skillSelectLabel");
-    //run function on each checkbox
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function (e) {
-            //check if box is checked, if so decrement skillPoints, otherwise increment
-            if (e.target.checked) {
-                console.log("box checked")
-                characterObject.skillPoints--;
-            } else {
-                console.log("box unchecked")
-                characterObject.skillPoints++;
-                enableAllCheckboxes(checkboxes);
-            }
+        skillDiv = document.getElementById("skillContainer")
+        skillOptions = skillDiv.getElementsByTagName("INPUT");
+        //returns all checkboxes to a nodeList
+        checkboxes = document.querySelectorAll("input[type=checkbox]");
+        label = document.getElementById("skillSelectLabel");
+        //run function on each checkbox
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function (e) {
+                //check if box is checked, if so decrement skillPoints, otherwise increment
+                if (e.target.checked) {
+                    console.log("box checked")
+                    characterObject.skillPoints--;
+                } else {
+                    console.log("box unchecked")
+                    characterObject.skillPoints++;
+                    enableAllCheckboxes(checkboxes);
+                }
 
-            if (characterObject.skillPoints == 0) {
-                disableRemainingCheckboxes(checkboxes);
-            }
-            label.innerText = characterObject.skillPoints + " points remaining";
+                if (characterObject.skillPoints == 0) {
+                    disableRemainingCheckboxes(checkboxes);
+                }
+                label.innerText = characterObject.skillPoints + " points remaining";
+            });
         });
-    });
-    function enableAllCheckboxes(checkboxes) {
-        checkboxes.forEach(function (c) {
-            c.disabled = false;
-            if (characterObject.proficientSkills.includes(c.value)) {
-                c.disabled = true;
-            }
-        });
-    }
+        function enableAllCheckboxes(checkboxes) {
+            checkboxes.forEach(function (c) {
+                c.disabled = false;
+                if (characterObject.proficientSkills.includes(c.value)) {
+                    c.disabled = true;
+                }
+            });
+        }
 
-    function disableRemainingCheckboxes(checkboxes) {
-        checkboxes.forEach(function (c) {
-            if (!c.checked) {
-                c.disabled = true;
-            }
-            
-        });
-    }
+        function disableRemainingCheckboxes(checkboxes) {
+            checkboxes.forEach(function (c) {
+                if (!c.checked) {
+                    c.disabled = true;
+                }
+
+            });
+        }
     };
-    
+
     //sends all selected skills to the proficientSkills array in characterObject
     var getSelectedSkills = () => {
         var selectedSkills = new Array();

@@ -12,6 +12,9 @@
 #abilityScoreContainer {
     display: block;
 }
+.RegJoeAbilities {
+    display: none;
+}
 #skillSection  {
     display: block;
 }
