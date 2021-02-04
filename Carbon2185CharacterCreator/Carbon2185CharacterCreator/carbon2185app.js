@@ -1,32 +1,139 @@
 var characterObject;
-
+/*TODO:
+Test classes for Origin, continue work on player classes
+Ability score increase/Regular Joe AS choice
+AC/HP stuff
+Present Character Sheet
+Level Up function
+BONUS TODO:
+Equipment management/stats
+POST/GET methods for multiple characters
+*/
 window.onload = function () {
+    //skill array for each career
+    corpDroneSkills = ["Bureaucracy", "Computing", "Deception", "Engineering",
+        "Hacking", "Perception", "Persuasion", "Sense Motive"];
+    criminalSkills = ["Deception", "Hacking", "Intimidation", "Performance",
+        "Presence", "Sense Motive", "Sleight of Hand", "Streetwise"];
+    entertainerSkills = ["Acrobatics", "Bureaucracy", "Gambling", "Performance",
+        "Presence", "Religion", "Sense Motive", "Streetwise"];
+    explorerSkills = ["Engineering", "Investigation", "Mechanics", "Navigation",
+        "Streetwise", "Tracking", "Vehicles (Aircraft)", "Vehicles(Land)"];
+    laborerSkills = ["Acrobatics", "Athletics", "Engineering", "Gambling",
+        "Mechanics", "Perception", "Robotics", "Vehicles (Land)"];
+    lawEnforcementSkills = ["Athletics", "Intimidation", "Investigation", "Perception",
+        "Presence", "Streetwise", "Tracking", "Vehicles (Land)"];
+    merchantSkills = ["Deception", "Gambling", "Navigation", "Perception",
+        "Persuasion", "Presence", "Sense Motive", "Streetwise"];
+    militarySkills = ["Acrobatics", "Athletics", "Medicine", "Navigation",
+        "Perception", "Tracking", "Vehicles (Aircraft)", "Vehicles (Land)"];
+    technicianSkills = ["Gambling", "Hacking", "Investigation", "Mechanics",
+        "Navigation", "Perception", "Persuasion", "Presence"];
+    unskilledWorkerSkills = ["Athletics", "Computers", "Gambling", "Mechanics",
+        "Perception", "Persuasion", "Sense Motive", "Vehicles (Land)"];
+    //skills for each character class
+    daimyoSkills = ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence",
+        "Vehicles (Aircraft)", "Vehicles (Land)"];
+    docSkills = ["Bureaucracy", "Gambling", "History", "Mechanics", "Medicine", "Perception",
+        "Persuasion", "Religion", "Sense Motive"];
+    enforcerSkills = ["Acrobatics", "Athletics", "Intimidation", "Navigation", "Perception",
+        "Sense Motive", "Vehicles (Land)"];
+    hackerSkills = ["Computing", "Hacking", "Medicine", "Sense Motive", "Stealth",
+        "Vehicles (Aircraft)", "Vehicles (Land)"];
+    investigatorSkills = ["Athletics", "Bureaucracy", "Computing", "Deception", "Gambling", "Hacking",
+        "Intimidation", "Investigation", "Perception", "Persuasion", "Presence", "Sense Motive", "Sleight of Hand",
+        "Stealth", "Streetwise", "Tracking"];
+    scoundrelSkills = ["Acrobatics", "Athletics", "Deception", "Hacking", "Investigation", "Perception",
+        "Performance", "Persuasion", "Religion", "Sense Motive", "Sleight of Hand", "Stealth"];
 
     var rollFunction = (min, max) => {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min) + min);
     }
-    allSkills = ["Acrobatics", "Athletics", "Bureaucracy", "Computing", "Deception", "Engineering",
-        "Gambling", "Hacking", "History", "Intimidation", "Investigation", "Mechanics", "Medicine", "Navigation",
-        "Perception", "Performance", "Persuasion", "Presence", "Religion", "Robotics", "Sense Motive",
-        "Sleight of Hand", "Stealth", "Streetwise", "Tracking", "Vehicles (Aircraft)", "Vehicles (Land)"];
+    ///////////////////TODO SUBCLASS & ABILITY SCORE CHANGES/////////////////////
+    function chooseSubclass(subclass1, subclass2, subclass3) {
+        var subclassDiv = document.getElementById("subclassContainer");
+        subclassDiv.style = "display: block"
+        subclassText = document.createTextNode("Choose your subclass:");
+        subclassDiv.appendChild(subclassText);
+        if (subclass3) {
+            var option1Button = document.createElement("button");
+            option1Button.innerHTML = `${subclass1.title}`;
+            subclassDiv.appendChild(option1Button);
+            var option2Button = document.createElement("button");
+            option2Button.innerHTML = `${subclass2.title}`;
+            subclassDiv.appendChild(option2Button);
+            var option3Button = document.createElement("button");
+            option3Button.innerHTML = `${subclass3.title}`;
+            subclassDiv.appendChild(option3Button);
+        } else {
+            var option1Button = document.createElement("button");
+            option1Button.innerHTML = `${subclass1.title}`;
+            var option2Button = document.createElement("button");
+            option2Button.innerHTML = `${subclass2.title}`;
+        };
+    };
+    function abilityScoreIncrease() {
+        var abilityPoints = 2;
+        abilityDiv = document.getElementById("ASIncreaseContainer");
+        checkboxes = abilityDiv.querySelectorAll("input[type=checkbox]");
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function (e) {
+                //check if box is checked, if so decrement skillPoints, otherwise increment
+                if (e.target.checked) {
+                    console.log("box checked")
+                    abilityPoints--;
+                } else {
+                    console.log("box unchecked")
+                    abilityPoints++;
+                    enableAllCheckboxes(checkboxes);
+                }
 
+                if (characterObject.skillPoints == 0) {
+                    disableRemainingCheckboxes(checkboxes);
+                }
+                label.innerText = characterObject.skillPoints + " points remaining";
+            });
+        });
+        function enableAllCheckboxes(checkboxes) {
+            checkboxes.forEach(function (c) {
+                c.disabled = false;
+
+            });
+        }
+
+        function disableRemainingCheckboxes(checkboxes) {
+            checkboxes.forEach(function (c) {
+                if (!c.checked) {
+                    c.disabled = true;
+                }
+
+            });
+        }
+    }
     var charName = document.getElementById("nameInput");
     var charOrigin = document.getElementById("originSelect");
-    var charClass = document.getElementById("classSelect");
     var charBackground = document.getElementById("backgroundSelect");
     charAvailableSkills = [];
     //character object declaration
     characterObject = {
         name: charName.value,
+        level: 0,
+        levelUpFunction: function (classObject) {
+            characterObject.level++;
+            characterObject.hitPoints
+        },
+
+
         origin: "",
         class: {
-            primary: "",
-            subClass: "",
+            primary: {},
+            subClass: {},
             features: []
         },
-        armorClass: 10 + charDexMod,
+        armorClass: 10,
+        proficiencyBonus: 2,
         wonlongBalance: 0,
         contractTermsServed: {
             careers: [],
@@ -38,6 +145,122 @@ window.onload = function () {
         traits: [],
         skillPoints: 0
     };
+    //class object declarations
+    
+        daimyoObject = {
+            title: "Daimyo",
+            classSkillPoints: 2,
+            classSkills: ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence",
+                "Vehicles (Aircraft)", "Vehicles (Land)"],
+            hitDie: 12,
+            hitDieRoll: function () {
+                return rollFunction(1, 13) + characterObject.charConMod;
+            },
+            proficiencies: {
+                armor: ["Medium Armor", "Heavy Armor"],
+                weapons: ["Melee weapons", "Pistols", "Submachine guns", "Shotguns", "Heavy weapons"],
+                savingThrows: ["Fortitude"]
+            },
+            resources: {
+                furyCount: 2
+            },
+            subclassOptions: {
+                sugo: {
+                    title: "Sugo",
+                    level3: {
+                        ballisticFury: "Ballistic fury text"
+                    },
+                    level6: {
+                        furiousFocus: "Furious focus text"
+                    },
+                    level10: {
+                        feverPitch: "Fever Pitch Text"
+                    }
+                },
+                sengoku: {
+                    title: "Sengoku",
+                    3: {},
+                    6: {},
+                    10: {}
+
+                }
+            },
+            level1: {
+                features: {
+                    fury: "fury text"
+                }
+            },
+            level2: {
+                features: {
+                    dangerSense: "Danger Sense text",
+                    rallyingCry: "Rallying Cry Text"
+                }
+            },
+            level3: {
+                //choose subclass function
+            },
+            level4: {
+                //ASI function
+            },
+        };
+    //class testing
+    class Career {
+        constructor(title, injuryDC, minWageRoll, maxWageRoll, wage, skillArray) {
+            this.title = title;
+            this.injuryDC = injuryDC;
+            this.wage = wage;
+            this.availableSkills = skillArray;
+            this.minWageRoll = minWageRoll;
+            this.maxWageRoll = maxWageRoll;
+            this.proficiencies = "One tool or language of your choice";
+        };
+        injuryCheck() {
+            const injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
+            if (injuryRoll > this.injuryDC) {
+                characterObject.contractTermsServed.terms += 1;
+                characterObject.skillPoints += 1;
+                characterObject.traits.push(this.proficiencies);
+                if (!characterObject.contractTermsServed.careers.includes(this.title)) {
+                    characterObject.contractTermsServed.careers.push(this.title);
+                };
+                document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
+                characterObject.wonlongBalance += rollFunction(this.minWageRoll, this.maxWageRoll) * this.wage;
+                this.availableSkills.forEach(element => {
+                    if (!charAvailableSkills.includes(element)) {
+                        charAvailableSkills.push(element);
+                    };
+                });
+            } else {
+                document.getElementById("injury").innerHTML = "INJURED";
+                //contractTermsButton.disabled = true;
+            };
+        };
+    };
+    class PlayerClass {
+        constructor(title, skillpoints, skillArray, hitDieMax,) {
+            this.title = title;
+            this.skillPoints = skillpoints;
+            this.classSkills = skillArray;
+            this.hitDieMax = hitDieMax;
+        };
+        hitDieRoll() {
+            return rollFunction(1, hitDieMax) + characterObject.charConMod;
+        };
+    };
+    //Player class instance declarations
+    daimyoClass = new PlayerClass("Daimyo", 2, daimyoSkills, 13);
+    //career class instance declarations
+    const corpDroneCareer = new Career("Corporate Drone", 6, 2, 9, 10000, corpDroneSkills);
+    const criminalCareer = new Career("Criminal", 7, 2, 9, 8000, criminalSkills);
+    const entertainerCareer = new Career("Entertainer", 6, 3, 13, 6000, entertainerSkills);
+    const explorerCareer = new Career("Explorer", 7, 2, 9, 15000, explorerSkills);
+    const laborerCareer = new Career("Laborer", 5, 2, 9, 9000, laborerSkills);
+    const lawCareer = new Career("Law Enforcement", 7, 3, 13, 8000, lawEnforcementSkills);
+    const merchantCareer = new Career("Merchant", 7, 2, 9, 15000, merchantSkills);
+    const militaryCareer = new Career("Military", 8, 3, 13, 10000, militarySkills);
+    const technicianCareer = new Career("Technician", 6, 2, 9, 7000, technicianSkills);
+    const unskilledWorkerCareer = new Career("Unskilled Worker", 4, 2, 9, 6000, unskilledWorkerSkills);
+
     //apply starting stats and features for each origin
     function assignOrigin() {
         for (var skillCount = 0; skillCount < charAvailableSkills.length; skillCount++) {
@@ -127,9 +350,6 @@ window.onload = function () {
                 characterObject.armorClass = 13 + charDexMod;
                 characterObject.traits.push("VRSynth placeholder text");
                 break;
-
-
-
         };
         //calculate modifiers from scores
         characterObject.charStrMod = Math.floor((characterObject.charStrScore - 10) / 2);
@@ -139,50 +359,23 @@ window.onload = function () {
         characterObject.charTecMod = Math.floor((characterObject.charTecScore - 10) / 2);
         characterObject.charPeoMod = Math.floor((characterObject.charPeoScore - 10) / 2);
     };
-    //skill array for each career
-    corpDroneSkills = ["Bureaucracy", "Computing", "Deception", "Engineering",
-        "Hacking", "Perception", "Persuasion", "Sense Motive"];
-    criminalSkills = ["Deception", "Hacking", "Intimidation", "Performance",
-        "Presence", "Sense Motive", "Sleight of Hand", "Streetwise"];
-    entertainerSkills = ["Acrobatics", "Bureaucracy", "Gambling", "Performance",
-        "Presence", "Religion", "Sense Motive", "Streetwise"];
-    explorerSkills = ["Engineering", "Investigation", "Mechanics", "Navigation",
-        "Streetwise", "Tracking", "Vehicles (Aircraft)", "Vehicles(Land)"];
-    laborerSkills = ["Acrobatics", "Athletics", "Engineering", "Gambling",
-        "Mechanics", "Perception", "Robotics", "Vehicles (Land)"];
-    lawEnforcementSkills = ["Athletics", "Intimidation", "Investigation", "Perception",
-        "Presence", "Streetwise", "Tracking", "Vehicles (Land)"];
-    merchantSkills = ["Deception", "Gambling", "Navigation", "Perception",
-        "Persuasion", "Presence", "Sense Motive", "Streetwise"];
-    militarySkills = ["Acrobatics", "Athletics", "Medicine", "Navigation",
-        "Perception", "Tracking", "Vehicles (Aircraft)", "Vehicles (Land)"];
-    technicianSkills = ["Gambling", "Hacking", "Investigation", "Mechanics",
-        "Navigation", "Perception", "Persuasion", "Presence"];
-    unskilledWorkerSkills = ["Athletics", "Computers", "Gambling", "Mechanics",
-        "Perception", "Persuasion", "Sense Motive", "Vehicles (Land)"];
-    //skills for each character class
-    daimyoSkills = ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence",
-        "Vehicles (Aircraft)", "Vehicles (Land)"];
-    docSkills = ["Bureaucracy", "Gambling", "History", "Mechanics", "Medicine", "Perception",
-        "Persuasion", "Religion", "Sense Motive"];
-    enforcerSkills = ["Acrobatics", "Athletics", "Intimidation", "Navigation", "Perception",
-        "Sense Motive", "Vehicles (Land)"];
-    hackerSkills = ["Computing", "Hacking", "Medicine", "Sense Motive", "Stealth",
-        "Vehicles (Aircraft)", "Vehicles (Land)"];
-    investigatorSkills = ["Athletics", "Bureaucracy", "Computing", "Deception", "Gambling", "Hacking",
-        "Intimidation", "Investigation", "Perception", "Persuasion", "Presence", "Sense Motive", "Sleight of Hand",
-        "Stealth", "Streetwise", "Tracking"];
-    scoundrelSkills = ["Acrobatics", "Athletics", "Deception", "Hacking", "Investigation", "Perception",
-        "Performance", "Persuasion", "Religion", "Sense Motive", "Sleight of Hand", "Stealth"];
-
+    //test parameter version
+    //////////////////////////TODO continue testing class assignment via function/parameter///////////////////////
+    //////////////////////////TODO: REGULAR JOE AS CHOICES///////////////////////////////////
+    function assignClassTest(classObject) {
+        characterObject.class = classObject;
+        characterObject.level++;
+        characterObject.skillPoints += classObject.classSkillPoints;
+        classObject.classSkills.forEach(skill => {
+            if (!charAvailableSkills.includes(skill)) {
+                charAvailableSkills.push(skill);
+            }
+        })
+    };
 
     charName.onchange = function () {
         characterObject.name = charName.value;
-    }
-    charClass.onchange = function () {
-        characterObject.class = this.value;
-    }
-
+    };
 
     var contractTermsButton = document.getElementById("addTermButton");
     //function to assign contract term - rolls for injury, adds skills and wages if passed
@@ -190,233 +383,43 @@ window.onload = function () {
     contractTermsButton.onclick = function () {
         switch (charBackground.value) {
             case "corpDrone":
-                var injuryDC = 6
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Corporate Drone")) {
-                        characterObject.contractTermsServed.careers.push("Corporate Drone");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 10000;
-                    corpDroneSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                corpDroneCareer.injuryCheck();
                 break;
 
             case "criminal":
-                var injuryDC = 7;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Criminal")) {
-                        characterObject.contractTermsServed.careers.push("Criminal");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 8000;
-                    criminalSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                criminalCareer.injuryCheck();
                 break;
 
             case "entertainer":
-                var injuryDC = 6;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Entertainer")) {
-                        characterObject.contractTermsServed.careers.push("Entertainer");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(3, 13) * 6000;
-                    entertainerSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                entertainerCareer.injuryCheck();
                 break;
 
             case "explorer":
-                var injuryDC = 7;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Explorer")) {
-                        characterObject.contractTermsServed.careers.push("Explorer");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 15000;
-                    explorerSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                explorerCareer.injuryCheck();
                 break;
 
             case "laborer":
-                var injuryDC = 5;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Laborer")) {
-                        characterObject.contractTermsServed.careers.push("Laborer")
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 9000;
-                    laborerSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                laborerCareer.injuryCheck();
                 break;
 
             case "lawEnforcement":
-                var injuryDC = 7;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Law Enforcement")) {
-                        characterObject.contractTermsServed.careers.push("Law Enforcement");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(3, 13) * 8000;
-                    lawEnforcementSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                lawCareer.injuryCheck();
                 break;
 
             case "merchant":
-                var injuryDC = 7;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Merchant")) {
-                        characterObject.contractTermsServed.careers.push("Merchant");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 15000;
-                    merchantSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                merchantCareer.injuryCheck();
                 break;
 
             case "military":
-                var injuryDC = 8;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Military")) {
-                        characterObject.contractTermsServed.careers.push("Military");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(3, 13) * 10000;
-                    militarySkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                militaryCareer.injuryCheck();
                 break;
 
             case "technician":
-                var injuryDC = 6;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Technician")) {
-                        characterObject.contractTermsServed.careers.push("Technician");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 7000;
-                    technicianSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                technicianCareer.injuryCheck();
                 break;
 
             case "unskilledWorker":
-                var injuryDC = 4;
-                var injuryRoll = rollFunction(2, 13) + Math.ceil(characterObject.charIntMod / 2);
-                if (injuryRoll > injuryDC) {
-                    characterObject.contractTermsServed.terms += 1;
-                    characterObject.skillPoints += 1;
-                    characterObject.traits.push("Language/tool proficiency");
-                    if (!characterObject.contractTermsServed.careers.includes("Unskilled Worker")) {
-                        characterObject.contractTermsServed.careers.push("Unskilled Worker");
-                    };
-                    document.getElementById("termsServed").innerHTML = characterObject.contractTermsServed.terms;
-                    characterObject.wonlongBalance += rollFunction(2, 9) * 6000;
-                    unskilledWorkerSkills.forEach(element => {
-                        if (!charAvailableSkills.includes(element)) {
-                            charAvailableSkills.push(element);
-                        };
-                    });
-                } else {
-                    document.getElementById("injury").innerHTML = "INJURED";
-                    //contractTermsButton.disabled = true;
-                };
+                unskilledWorkerCareer.injuryCheck();
                 break;
 
             default:
@@ -490,11 +493,13 @@ window.onload = function () {
     //switch from origin screen to career screen
     document.getElementById("originButton").onclick = function () {
         assignOrigin();
+        assignClassTest(daimyoObject);
         document.getElementById("originContainer").style = "display: none";
         document.getElementById("contractTermContainer").style = "display: block";
     };
     //hide career screen, show skill screen, skill selection
     document.getElementById("careerButton").onclick = function () {
+        charAvailableSkills.sort();
         document.getElementById("contractTermContainer").style = "display: none";
         //create checkbox element for each skill in availableSkills
         var skillDiv = document.getElementById("skillSection");
@@ -515,7 +520,7 @@ window.onload = function () {
         //display skill choice screen
         document.getElementById("skillContainer").style = "display: block";
         document.getElementById("skillSelectLabel").innerHTML = `Select ${characterObject.skillPoints} skills:`;
-        //limit number of skill choices to skillPoints variable (STILL BROKEN)
+
         skillDiv = document.getElementById("skillContainer")
         skillOptions = skillDiv.getElementsByTagName("INPUT");
         //returns all checkboxes to a nodeList
@@ -572,8 +577,18 @@ window.onload = function () {
             characterObject.proficientSkills.push(skill);
         })
     }
-    document.getElementById("submitButton").onclick = getSelectedSkills;
+    document.getElementById("submitButton").onclick = () => {
+        getSelectedSkills;
+        document.getElementById("skillContainer").style = "display: none";
+        document.getElementById("sheetContainer").style = "display: block";
+    }
+    
+    document.getElementById("testButton").onclick = () => {
+        document.getElementById("ASIncreaseContainer").style = "display: block";
+        var abilityPoints = 2
+        var checkboxes = document.getElementById("ASIncreaseContainer").querySelectorAll("input [type=checkbox]");
+        
+    }
 }
-//////////////////////////TODO: REGULAR JOE AS CHOICES///////////////////////////////////
 
 

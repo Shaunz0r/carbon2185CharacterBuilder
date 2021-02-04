@@ -11,6 +11,37 @@
 </head>
 
 <body>
+    <button id="testButton">TEST</button>
+    <div class="container" id="ASIncreaseContainer">
+        <h3>Ability Score Increase</h3>
+        <input type="checkbox" id="strIncrease" value="Strength">
+        <label for="strIncrease">Strength</label><br>
+        <input type="checkbox" id="dexIncrease" value="Dexterity">
+        <label for="dexIncrease">Dexterity</label><br>
+        <input type="checkbox" id="conIncrease" value="Constitution">
+        <label for="conIncrease">Constitution</label><br>
+        <input type="checkbox" id="intIncrease" value="Intelligence">
+        <label for="intIncrease">Intelligence</label><br>
+        <input type="checkbox" id="tecIncrease" value="Technology">
+        <label for="tecIncrease">Technology</label><br>
+        <input type="checkbox" id="peoIncrease" value="People">
+        <label for="peoIncrease">People</label><br>
+    </div>
+    <div class="container" id="ASIncreaseContainer">
+        <h3>Ability Score Increase</h3>
+        <input type="checkbox" id="strIncrease" value="Strength">
+        <label for="strIncrease">Strength</label><br>
+        <input type="checkbox" id="dexIncrease" value="Dexterity">
+        <label for="dexIncrease">Dexterity</label><br>
+        <input type="checkbox" id="conIncrease" value="Constitution">
+        <label for="conIncrease">Constitution</label><br>
+        <input type="checkbox" id="intIncrease" value="Intelligence">
+        <label for="intIncrease">Intelligence</label><br>
+        <input type="checkbox" id="tecIncrease" value="Technology">
+        <label for="tecIncrease">Technology</label><br>
+        <input type="checkbox" id="peoIncrease" value="People">
+        <label for="peoIncrease">People</label><br>
+    </div>
     <div class="container" id="abilityScoreContainer">
         <h2>Ability Scores Before Origin Bonuses</h2>
         <button id="abilityScoreButton">Roll</button>
@@ -56,21 +87,7 @@
 
             <option value="wormer">Wormer</option>
         </select><br>
-        <div class="container" id="RegJoeSection">
-        <select class="RegJoeAbilities" id="RegJoeAbilityChoice1">
-            <option value="Strength">Strength</option>
-            <option value="Dexterity">Dexterity</option>
-            <option value="Constitution">Constitution</option>
-            <option value="Intelligence">Intelligence</option>
-            <option value="Technology">Technology</option>
-        </select>
-        <select class="RegJoeAbilities" id="RegJoeAbilityChoice2">
-            <option value="Strength">Strength</option>
-            <option value="Dexterity">Dexterity</option>
-            <option value="Constitution">Constitution</option>
-            <option value="Intelligence">Intelligence</option>
-            <option value="Technology">Technology</option>
-        </select>
+        
         </div>
         <label for="class">Class:</label>
         <select name="class" id="classSelect">
@@ -113,90 +130,15 @@
 
         <label id="skillSelectLabel" for="skillSelect"></label><br>
         <div id="skillSection">
-            <!--<input class="skillOption" type="checkbox" id="Acrobatics" name="skill" value="acrobatics">
-            <label for="skill1">Acrobatics</label><br>
 
-            <input class="skillOption" type="checkbox" id="Athletics" name="skill" value="athletics">
-            <label for="skill1">Athletics</label><br>
-
-            <input class="skillOption" type="checkbox" id="Bureaucracy" name="skill" value="bureaucracy">
-            <label for="skill1">Bureaucracy</label><br>
-
-            <input class="skillOption" type="checkbox" id="Computing" name="skill" value="computing">
-            <label for="skill1">Computing</label><br>
-
-            <input class="skillOption" type="checkbox" id="Deception" name="skill" value="Deception">
-            <label for="skill1">Deception</label><br>
-
-            <input class="skillOption" type="checkbox" id="Engineering" name="skill" value="engineering">
-            <label for="skill1">Engineering</label><br>
-
-            <input class="skillOption" type="checkbox" id="Gambling" name="skill" value="gambling">
-            <label for="skill1">Gambling</label><br>
-
-            <input class="skillOption" type="checkbox" id="Hacking" name="skill" value="hacking">
-            <label for="skill1">Hacking</label><br>
-
-            <input class="skillOption" type="checkbox" id="History" name="skill" value="history">
-            <label for="skill1">History</label><br>
-
-            <input class="skillOption" type="checkbox" id="Intimidation" name="skill" value="intimidation">
-            <label for="skill1">Intimidation</label><br>
-
-            <input class="skillOption" type="checkbox" id="Investigation" name="skill" value="investigation">
-            <label for="skill1">Investigation</label><br>
-
-            <input class="skillOption" type="checkbox" id="Mechanics" name="skill" value="mechanics">
-            <label for="skill1">Mechanics</label><br>
-
-            <input class="skillOption" type="checkbox" id="Medicine" name="skill" value="medicine">
-            <label for="skill1">Medicine</label><br>
-
-            <input class="skillOption" type="checkbox" id="Navigation" name="skill" value="navigation">
-            <label for="skill1">Navigation</label><br>
-
-            <input class="skillOption" type="checkbox" id="Perception" name="skill" value="perception">
-            <label for="skill1">Perception</label><br>
-
-            <input class="skillOption" type="checkbox" id="Performance" name="skill" value="performance">
-            <label for="skill1">Performance</label><br>
-
-            <input class="skillOption" type="checkbox" id="Persuasion" name="skill" value="persuasion">
-            <label for="skill1">Persuasion</label><br>
-
-            <input class="skillOption" type="checkbox" id="Presence" name="skill" value="presence">
-            <label for="skill1">Presence</label><br>
-
-            <input class="skillOption" type="checkbox" id="Religion" name="skill" value="religion">
-            <label for="skill1">Religion</label><br>
-
-            <input class="skillOption" type="checkbox" id="Robotics" name="skill" value="robotics">
-            <label for="skill1">Robotics</label><br>
-
-            <input class="skillOption" type="checkbox" id="Sense Motive" name="skill" value="senseMotive">
-            <label for="skill1">Sense Motive</label><br>
-
-            <input class="skillOption" type="checkbox" id="Sleight of Hand" name="skill" value="sleightOfHand">
-            <label for="skill1">Sleight of Hand</label><br>
-
-            <input class="skillOption" type="checkbox" id="Stealth" name="skill" value="stealth">
-            <label for="skill1">Stealth</label><br>
-
-            <input class="skillOption" type="checkbox" id="Stretwise" name="skill" value="streetwise">
-            <label for="skill1">Stretwise</label><br>
-
-            <input class="skillOption" type="checkbox" id="Tracking" name="skill" value="tracking">
-            <label for="skill1">Tracking</label><br>
-
-            <input class="skillOption" type="checkbox" id="Vehicles (Aircraft)" name="skill" value="vehiclesAircraft">
-            <label for="skill1">Vehicles (Aircraft)</label><br>
-
-            <input class="skillOption" type="checkbox" id="Vehicles (Land)" name="skill" value="vehiclesLand">
-            <label for="skill1">Vehicles (Land)</label><br>-->
         </div>
         <Button id="submitButton">Finalize Character</Button>
 
     </div>
+    <div class="container" id="subclassContainer">
+
+    </div>
+    
     <div class="container" id="sheetContainer">
         <div class="container" id="nameContainer">
             <h2>Character Name:<h2 id="nameDisplay"></h2>
@@ -208,7 +150,24 @@
             <p class="infoDisplay">Experience Points</p>
         </div>
         <div class="container" id="sheetAbilityScoreContainer">
-
+            <h2>Strength:</h2>
+            <h2 id="CSstrengthScore">0</h2>
+            <h3 id="CSstrengthMod">0</h3>
+            <h2>Dexterity</h2>
+            <h2 id="CSdexterityScore">0</h2>
+            <h3 id="CSdexterityMod">0</h3>
+            <h2>Constitution</h2>
+            <h2 id="CSconstitutionScore">0</h2>
+            <h3 id="CSconstitutionMod">0</h3>
+            <h2>Intelligence</h2>
+            <h2 id="CSintelligenceScore">0</h2>
+            <h3 id="CSintelligenceMod">0</h3>
+            <h2>Technology</h2>
+            <h2 id="CStechnologyScore">0</h2>
+            <h3 id="CStechnologyMod">0</h3>
+            <h2>People</h2>
+            <h2 id="CSpeopleScore">0</h2>
+            <h3 id="CSpeopleMod">0</h3>
         </div>
 
         <div class="container" id="proficiencyContainer">
