@@ -1,10 +1,24 @@
+html {
+    font-family: 'Courier New', Courier, monospace;
+}
 .container {
-    display: none;
     background-color: gray;
     border-radius: 5px;
     padding: 10px;
-    width: fit-content;
+    width: auto;
     margin: 20px;
+}
+.container > .container {
+    background-color: whitesmoke;
+    width: fit-content;
+}
+.infoDisplay {
+    display: inline;
+    margin-right: 50px;
+}
+#characterBioContainer {
+    height: 50px;
+    width: auto;
 }
 
 #abilityButton {

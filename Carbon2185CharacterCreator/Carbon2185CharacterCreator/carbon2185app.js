@@ -10,6 +10,11 @@ Equipment management/stats
 POST/GET methods for multiple characters
 */
 window.onload = function () {
+    allSkills = ["Acrobatics", "Athletics", "Bureaucracy", "Computing", "Deception", "Engineering",
+        "Gambling", "Hacking", "History", "Intimidation", "Investigation", "Mechanics", "Medicine",
+        "Navigation", "Perception", "Performance", "Persuasion", "Presence", "Religion", "Robotics",
+        "Sense Motive", "Sleight of Hand", "Stealth", "Streetwise", "Tracking", "Vehicles (Aircraft)",
+        "Vehicles (Land)"];
     //skill array for each career
     corpDroneSkills = ["Bureaucracy", "Computing", "Deception", "Engineering",
         "Hacking", "Perception", "Persuasion", "Sense Motive"];
@@ -25,7 +30,7 @@ window.onload = function () {
         "Presence", "Streetwise", "Tracking", "Vehicles (Land)"];
     merchantSkills = ["Deception", "Gambling", "Navigation", "Perception",
         "Persuasion", "Presence", "Sense Motive", "Streetwise"];
-    militarySkills = ["Acrobatics", "Athletics", "Medicine", "Navigation",
+    militarySkills = ["Athletics", "Medicine", "Navigation",
         "Perception", "Tracking", "Vehicles (Aircraft)", "Vehicles (Land)"];
     technicianSkills = ["Gambling", "Hacking", "Investigation", "Mechanics",
         "Navigation", "Perception", "Persuasion", "Presence"];
@@ -51,6 +56,13 @@ window.onload = function () {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min) + min);
     }
+    function calculateModifiers(score) {
+        if (score >= 0) {
+            return Math.floor((score - 10) / 2);
+        } else {
+            return Math.ceil((score - 10) / 2);
+        };
+    };
     ///////////////////TODO SUBCLASS & ABILITY SCORE CHANGES/////////////////////
     function chooseSubclass(subclass1, subclass2, subclass3) {
         var subclassDiv = document.getElementById("subclassContainer");
@@ -74,32 +86,55 @@ window.onload = function () {
             option2Button.innerHTML = `${subclass2.title}`;
         };
     };
+    //ABILITY SCORE INCREASE FUNCTION
     function abilityScoreIncrease() {
-        var abilityPoints = 2;
-        abilityDiv = document.getElementById("ASIncreaseContainer");
-        checkboxes = abilityDiv.querySelectorAll("input[type=checkbox]");
+        var ASPoints = 0;
+        var ASIDiv = document.getElementById("ASIIncreaseContainer");
+        document.getElementById("ASISubmit").style = "display: none";
+        var checkboxes = ASIDiv.querySelectorAll("input[type=checkbox]");
         checkboxes.forEach(function (checkbox) {
             checkbox.addEventListener('change', function (e) {
                 //check if box is checked, if so decrement skillPoints, otherwise increment
                 if (e.target.checked) {
                     console.log("box checked")
-                    abilityPoints--;
+                    ASPoints++;
                 } else {
                     console.log("box unchecked")
-                    abilityPoints++;
+                    ASPoints--;
                     enableAllCheckboxes(checkboxes);
                 }
-
-                if (characterObject.skillPoints == 0) {
+                if (ASPoints == 2) {
                     disableRemainingCheckboxes(checkboxes);
                 }
-                label.innerText = characterObject.skillPoints + " points remaining";
+                if (ASPoints >= 1) {
+                    document.getElementById("ASISubmit").style = "display: block";
+
+                } else if (ASPoints == 2) {
+                    document.getElementById("ASISubmit").style = "display: block";
+                    disableRemainingCheckboxes(checkboxes);
+                }
+                document.getElementById("ASISubmit").onclick = () => {
+                    checkboxes.forEach(function (checkbox) {
+                        if (checkbox.checked === true && ASPoints === 1) {
+                            characterObject[checkbox.value] += 2;
+                        } else if (checkbox.checked === true && ASPoints === 2) {
+                            characterObject[checkbox.value] += 1;
+                        }
+
+                        characterObject.charStrMod = calculateModifiers(characterObject.charStrScore);
+                        characterObject.charDexMod = calculateModifiers(characterObject.charDexScore);
+                        characterObject.charConMod = calculateModifiers(characterObject.charConScore);
+                        characterObject.charIntMod = calculateModifiers(characterObject.charIntScore);
+                        characterObject.charTecMod = calculateModifiers(characterObject.charTecScore);
+                        characterObject.charPeoMod = calculateModifiers(characterObject.charPeoScore);
+
+                    })
+                }
             });
         });
         function enableAllCheckboxes(checkboxes) {
             checkboxes.forEach(function (c) {
                 c.disabled = false;
-
             });
         }
 
@@ -111,6 +146,60 @@ window.onload = function () {
 
             });
         }
+
+    }
+    function regJoeASI() {
+        var ASPoints = 2;
+        var regJoeDiv = document.getElementById("RegJoeChoiceContainer");
+        document.getElementById("RegJoeSubmit").style = "display: none";
+        var checkboxes = regJoeDiv.querySelectorAll("input[type=checkbox]");
+        document.getElementById("peoIncrease").checked = true;
+        document.getElementById("peoIncrease").disabled = true;
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function (e) {
+                //check if box is checked, if so decrement skillPoints, otherwise increment
+                if (e.target.checked) {
+                    ASPoints--;
+                } else {
+                    ASPoints++;
+                    enableAllCheckboxes(checkboxes);
+                    document.getElementById("peoIncrease").disabled = true;
+                }
+
+                if (ASPoints == 0) {
+                    disableRemainingCheckboxes(checkboxes);
+                    document.getElementById("RegJoeSubmit").style = "display: block"
+                }
+                document.getElementById("RegJoeSubmit").onclick = () => {
+                    checkboxes.forEach(function (checkbox) {
+                        if (checkbox.checked === true) {
+                            characterObject[checkbox.value] += 1;
+                        }
+                    })
+                    characterObject.charStrMod = calculateModifiers(characterObject.charStrScore);
+                    characterObject.charDexMod = calculateModifiers(characterObject.charDexScore);
+                    characterObject.charConMod = calculateModifiers(characterObject.charConScore);
+                    characterObject.charIntMod = calculateModifiers(characterObject.charIntScore);
+                    characterObject.charTecMod = calculateModifiers(characterObject.charTecScore);
+                    characterObject.charPeoMod = calculateModifiers(characterObject.charPeoScore);
+                }
+            });
+        });
+        function enableAllCheckboxes(checkboxes) {
+            checkboxes.forEach(function (c) {
+                c.disabled = false;
+            });
+        }
+
+        function disableRemainingCheckboxes(checkboxes) {
+            checkboxes.forEach(function (c) {
+                if (!c.checked) {
+                    c.disabled = true;
+                }
+
+            });
+        }
+
     }
     var charName = document.getElementById("nameInput");
     var charOrigin = document.getElementById("originSelect");
@@ -121,11 +210,9 @@ window.onload = function () {
         name: charName.value,
         level: 0,
         levelUpFunction: function (classObject) {
-            characterObject.level++;
-            characterObject.hitPoints
+            this.level++;
+
         },
-
-
         origin: "",
         class: {
             primary: {},
@@ -133,6 +220,7 @@ window.onload = function () {
             features: []
         },
         armorClass: 10,
+        hitPoints: 0,
         proficiencyBonus: 2,
         wonlongBalance: 0,
         contractTermsServed: {
@@ -146,63 +234,61 @@ window.onload = function () {
         skillPoints: 0
     };
     //class object declarations
-    
-        daimyoObject = {
-            title: "Daimyo",
-            classSkillPoints: 2,
-            classSkills: ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence",
-                "Vehicles (Aircraft)", "Vehicles (Land)"],
-            hitDie: 12,
-            hitDieRoll: function () {
-                return rollFunction(1, 13) + characterObject.charConMod;
-            },
-            proficiencies: {
-                armor: ["Medium Armor", "Heavy Armor"],
-                weapons: ["Melee weapons", "Pistols", "Submachine guns", "Shotguns", "Heavy weapons"],
-                savingThrows: ["Fortitude"]
-            },
-            resources: {
-                furyCount: 2
-            },
-            subclassOptions: {
-                sugo: {
-                    title: "Sugo",
-                    level3: {
-                        ballisticFury: "Ballistic fury text"
-                    },
-                    level6: {
-                        furiousFocus: "Furious focus text"
-                    },
-                    level10: {
-                        feverPitch: "Fever Pitch Text"
-                    }
-                },
-                sengoku: {
-                    title: "Sengoku",
-                    3: {},
-                    6: {},
-                    10: {}
 
+    daimyoObject = {
+        title: "Daimyo",
+        classSkillPoints: 2,
+        classSkills: ["Athletics", "Intimidation", "Perception", "Persuasion", "Presence",
+            "Vehicles (Aircraft)", "Vehicles (Land)"],
+        hitDie: 12,
+        hitDieRoll: function () {
+            return rollFunction(1, 13) + characterObject.charConMod;
+        },
+        proficiencies: {
+            armor: ["Medium Armor", "Heavy Armor"],
+            weapons: ["Melee weapons", "Pistols", "Submachine guns", "Shotguns", "Heavy weapons"],
+            savingThrows: ["Fortitude"]
+        },
+        resources: {
+            furyCount: 2
+        },
+        subclassOptions: {
+            sugo: {
+                title: "Sugo",
+                level3: {
+                    ballisticFury: "Ballistic fury text"
+                },
+                level6: {
+                    furiousFocus: "Furious focus text"
+                },
+                level10: {
+                    feverPitch: "Fever Pitch Text"
                 }
             },
-            level1: {
-                features: {
-                    fury: "fury text"
-                }
-            },
-            level2: {
-                features: {
-                    dangerSense: "Danger Sense text",
-                    rallyingCry: "Rallying Cry Text"
-                }
-            },
-            level3: {
-                //choose subclass function
-            },
-            level4: {
-                //ASI function
-            },
-        };
+            sengoku: {
+                title: "Sengoku",
+                3: {},
+                6: {},
+                10: {}
+
+            }
+        },
+        level1: {
+            features: {
+                fury: "fury text"
+            }
+        },
+        level2: {
+            features: {
+                dangerSense: "Danger Sense text",
+                rallyingCry: "Rallying Cry Text"
+            }
+        },
+        level3: {
+            //choose subclass function
+        },
+        level4: abilityScoreIncrease()
+    };
     //class testing
     class Career {
         constructor(title, injuryDC, minWageRoll, maxWageRoll, wage, skillArray) {
@@ -331,7 +417,7 @@ window.onload = function () {
                 characterObject.speed = 30;
                 characterObject.charConScore += 2;
                 characterObject.charDexScore += 2;
-                characterObject.armorClass = 13 + charDexMod;
+                characterObject.armorClass = 13;
                 characterObject.traits.push("HDSynth placeholder text");
                 break;
             case "shenzenSolutionsSynth":
@@ -339,7 +425,7 @@ window.onload = function () {
                 characterObject.speed = 30;
                 characterObject.charConScore += 2;
                 characterObject.charPeoScore += 1;
-                characterObject.armorClass = 13 + charDexMod;
+                characterObject.armorClass = 13;
                 characterObject.traits.push("SSSynth placeholder text");
                 break;
             case "visserRoboticsSynth":
@@ -347,17 +433,17 @@ window.onload = function () {
                 characterObject.speed = 30;
                 characterObject.charConScore += 2;
                 characterObject.charStrcore += 1;
-                characterObject.armorClass = 13 + charDexMod;
+                characterObject.armorClass = 13;
                 characterObject.traits.push("VRSynth placeholder text");
                 break;
         };
         //calculate modifiers from scores
-        characterObject.charStrMod = Math.floor((characterObject.charStrScore - 10) / 2);
-        characterObject.charDexMod = Math.floor((characterObject.charDexScore - 10) / 2);
-        characterObject.charConMod = Math.floor((characterObject.charConScore - 10) / 2);
-        characterObject.charIntMod = Math.floor((characterObject.charIntScore - 10) / 2);
-        characterObject.charTecMod = Math.floor((characterObject.charTecScore - 10) / 2);
-        characterObject.charPeoMod = Math.floor((characterObject.charPeoScore - 10) / 2);
+        characterObject.charStrMod = calculateModifiers(characterObject.charStrScore);
+        characterObject.charDexMod = calculateModifiers(characterObject.charDexScore);
+        characterObject.charConMod = calculateModifiers(characterObject.charConScore);
+        characterObject.charIntMod = calculateModifiers(characterObject.charIntScore);
+        characterObject.charTecMod = calculateModifiers(characterObject.charTecScore);
+        characterObject.charPeoMod = calculateModifiers(characterObject.charPeoScore);
     };
     //test parameter version
     //////////////////////////TODO continue testing class assignment via function/parameter///////////////////////
@@ -365,6 +451,7 @@ window.onload = function () {
     function assignClassTest(classObject) {
         characterObject.class = classObject;
         characterObject.level++;
+        characterObject.hitPoints = classObject.hitDie + characterObject.charConMod;
         characterObject.skillPoints += classObject.classSkillPoints;
         classObject.classSkills.forEach(skill => {
             if (!charAvailableSkills.includes(skill)) {
@@ -380,7 +467,7 @@ window.onload = function () {
     var contractTermsButton = document.getElementById("addTermButton");
     //function to assign contract term - rolls for injury, adds skills and wages if passed
     //prevents further contract terms if failed
-    contractTermsButton.onclick = function () {
+    contractTermsButton.onclick = function (careerChoice) {
         switch (charBackground.value) {
             case "corpDrone":
                 corpDroneCareer.injuryCheck();
@@ -431,7 +518,31 @@ window.onload = function () {
     };
     var rollButton = document.getElementById("abilityScoreButton");
     //Ability Score generation
+
     rollButton.onclick = function () {
+        //refactor to single function
+        /* var forEach = Array.prototype.forEach;
+         var allAbilityScores = Object.keys(characterObject.abilityScores).length;
+         console.log(allAbilityScores)
+         var abilityScoreDisplay = document.getElementsByClassName("abilityScoreDisplay");
+         var abilityModDisplay = document.getElementsByClassName("abilityModDisplay");
+ 
+ 
+         for (var score in characterObject.abilityScores) {
+             score = rollFunction(2, 13) + 5;
+             console.log(score);
+             var scoreMod = Math.floor((score - 10) / 2);
+             for (i = 0; i < abilityScoreDisplay.length; i++) {
+                 abilityScoreDisplay[i].innerHTML = score;
+                 if (scoreMod >= 0) {
+                     abilityModDisplay[i].innerHTML = "+" + scoreMod;
+                 } else {
+                     abilityModDisplay[i].innerHTML = scoreMod;
+                 };
+             };*/
+
+
+
         characterObject.charStrScore = rollFunction(2, 13) + 5;
         document.getElementById("strengthScore").innerHTML = characterObject.charStrScore;
         if (characterObject.charStrMod >= 0) {
@@ -482,25 +593,30 @@ window.onload = function () {
         } else {
             document.getElementById("peopleMod").innerHTML = characterObject.charPeoMod;
         };
+
         document.getElementById("abilityButton").style = "display: block";
 
     };
     //switch from ability score screen to origin screen
     document.getElementById("abilityButton").onclick = function () {
-        document.getElementById("abilityScoreContainer").style = "display: none";
-        document.getElementById("originContainer").style = "display: block";
+        //document.getElementById("abilityScoreContainer").style = "display: none";
+        //document.getElementById("originContainer").style = "display: block";
     };
     //switch from origin screen to career screen
     document.getElementById("originButton").onclick = function () {
         assignOrigin();
+        characterObject.armorClass += characterObject.charDexMod;
+        if (characterObject.origin === "Regular Joe") {
+            regJoeASI();
+        }
         assignClassTest(daimyoObject);
-        document.getElementById("originContainer").style = "display: none";
+        //document.getElementById("originContainer").style = "display: none";
         document.getElementById("contractTermContainer").style = "display: block";
     };
     //hide career screen, show skill screen, skill selection
     document.getElementById("careerButton").onclick = function () {
         charAvailableSkills.sort();
-        document.getElementById("contractTermContainer").style = "display: none";
+        //document.getElementById("contractTermContainer").style = "display: none";
         //create checkbox element for each skill in availableSkills
         var skillDiv = document.getElementById("skillSection");
         for (var skillCounter = 0; skillCounter < charAvailableSkills.length; skillCounter++) {
@@ -524,7 +640,7 @@ window.onload = function () {
         skillDiv = document.getElementById("skillContainer")
         skillOptions = skillDiv.getElementsByTagName("INPUT");
         //returns all checkboxes to a nodeList
-        checkboxes = document.querySelectorAll("input[type=checkbox]");
+        checkboxes = skillDiv.querySelectorAll("input[type=checkbox]");
         label = document.getElementById("skillSelectLabel");
         //run function on each checkbox
         checkboxes.forEach(function (checkbox) {
@@ -574,21 +690,76 @@ window.onload = function () {
             }
         }
         selectedSkills.forEach(skill => {
-            characterObject.proficientSkills.push(skill);
-        })
-    }
+            if (!characterObject.proficientSkills.includes(skill)) {
+                characterObject.proficientSkills.push(skill);
+            };
+        });
+    };
+    //Finalise skills, open character sheet div
     document.getElementById("submitButton").onclick = () => {
-        getSelectedSkills;
-        document.getElementById("skillContainer").style = "display: none";
+        getSelectedSkills();
+        //document.getElementById("skillContainer").style = "display: none";
         document.getElementById("sheetContainer").style = "display: block";
-    }
-    
-    document.getElementById("testButton").onclick = () => {
-        document.getElementById("ASIncreaseContainer").style = "display: block";
-        var abilityPoints = 2
-        var checkboxes = document.getElementById("ASIncreaseContainer").querySelectorAll("input [type=checkbox]");
+        document.getElementById("nameDisplay").innerHTML = characterObject.name;
+        document.getElementById("originDisplay").innerHTML = characterObject.origin;
+        document.getElementById("classDisplay").innerHTML = `${characterObject.class.title} ${characterObject.level}`;
+        document.getElementById("CSstrengthScore").innerHTML = characterObject.charStrScore;
+        document.getElementById("CSstrengthMod").innerHTML = characterObject.charStrMod;
+        document.getElementById("CSdexterityScore").innerHTML = characterObject.charDexScore;
+        document.getElementById("CSdexterityMod").innerHTML = characterObject.charDexMod;
+        document.getElementById("CSconstitutionScore").innerHTML = characterObject.charConScore;
+        document.getElementById("CSconstitutionMod").innerHTML = characterObject.charConMod;
+        document.getElementById("CSintelligenceScore").innerHTML = characterObject.charIntScore;
+        document.getElementById("CSintelligenceMod").innerHTML = characterObject.charIntMod;
+        document.getElementById("CStechnologyScore").innerHTML = characterObject.charTecScore;
+        document.getElementById("CStechnologyMod").innerHTML = characterObject.charTecMod;
+        document.getElementById("CSpeopleScore").innerHTML = characterObject.charPeoScore;
+        document.getElementById("CSpeopleMod").innerHTML = characterObject.charPeoMod;
+        document.getElementById("maxHPDisplay").innerHTML = characterObject.hitPoints;
+        document.getElementById("ACDisplay").innerHTML = characterObject.armorClass;
+        characterObject.traits.forEach(trait => {
+            var traitDiv = document.getElementById("traitContainer");
+            document.createElement("p");
+            var breakLine = document.createElement("br");
+            var traitText = document.createTextNode(`${trait}`);
+            traitDiv.appendChild(traitText);
+            traitDiv.appendChild(breakLine);
+        })
+        for (feature in characterObject.class.level1.features){
+            var featureDiv = document.getElementById("featureContainer");
+            document.createElement("p");
+            var breakLine = document.createElement("br");
+            var featureText = document.createTextNode(`${feature}: ${characterObject.class.level1.features[feature]}`);
+            featureDiv.appendChild(featureText);
+            featureDiv.appendChild(breakLine);
+        }
         
-    }
+
+
+        allSkills.forEach(skill => {
+            if (characterObject.proficientSkills.includes(skill)) {
+                var skillBox = document.getElementById("skillsContainer");
+                document.createElement("p")
+                var breakLine = document.createElement("br");
+                var skillName = document.createTextNode(`${skill}*`);
+                skillBox.appendChild(skillName);
+                skillBox.appendChild(breakLine);
+            } else {
+                var skillBox = document.getElementById("skillsContainer");
+                document.createElement("p")
+                var breakLine = document.createElement("br");
+                var skillName = document.createTextNode(`${skill}`);
+                skillBox.appendChild(skillName);
+                skillBox.appendChild(breakLine);
+            }
+        })
+    };
+
+}
+
+document.getElementById("testButton").onclick = () => {
+    abilityScoreIncrease();
+
 }
 
 
