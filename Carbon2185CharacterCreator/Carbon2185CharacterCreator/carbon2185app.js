@@ -153,8 +153,8 @@ window.onload = function () {
         var regJoeDiv = document.getElementById("RegJoeChoiceContainer");
         document.getElementById("RegJoeSubmit").style = "display: none";
         var checkboxes = regJoeDiv.querySelectorAll("input[type=checkbox]");
-        document.getElementById("peoIncrease").checked = true;
-        document.getElementById("peoIncrease").disabled = true;
+        document.getElementById("rjpeoIncrease").checked = true;
+        document.getElementById("rjpeoIncrease").disabled = true;
         checkboxes.forEach(function (checkbox) {
             checkbox.addEventListener('change', function (e) {
                 //check if box is checked, if so decrement skillPoints, otherwise increment
@@ -163,7 +163,7 @@ window.onload = function () {
                 } else {
                     ASPoints++;
                     enableAllCheckboxes(checkboxes);
-                    document.getElementById("peoIncrease").disabled = true;
+                    document.getElementById("rjpeoIncrease").disabled = true;
                 }
 
                 if (ASPoints == 0) {
@@ -545,54 +545,21 @@ window.onload = function () {
 
         characterObject.charStrScore = rollFunction(2, 13) + 5;
         document.getElementById("strengthScore").innerHTML = characterObject.charStrScore;
-        if (characterObject.charStrMod >= 0) {
-            document.getElementById("strengthMod").innerHTML = "+" + characterObject.charStrMod;
-        } else {
-            document.getElementById("strengthMod").innerHTML = characterObject.charStrMod;
-        };
-
 
         characterObject.charDexScore = rollFunction(2, 13) + 5;
         document.getElementById("dexterityScore").innerHTML = characterObject.charDexScore;
-        if (characterObject.charDexMod >= 0) {
-            document.getElementById("dexterityMod").innerHTML = "+" + characterObject.charDexMod;
-        } else {
-            document.getElementById("dexterityMod").innerHTML = characterObject.charDexMod;
-        };
-
+    
         characterObject.charConScore = rollFunction(2, 13) + 5;
         document.getElementById("constitutionScore").innerHTML = characterObject.charConScore;
-        if (characterObject.charConMod >= 0) {
-            document.getElementById("constitutionMod").innerHTML = "+" + characterObject.charConMod;
-        } else {
-            document.getElementById("constitutionMod").innerHTML = characterObject.charConMod;
-        };
 
         characterObject.charIntScore = rollFunction(2, 13) + 5;
         document.getElementById("intelligenceScore").innerHTML = characterObject.charIntScore;
-        if (characterObject.charIntMod >= 0) {
-            document.getElementById("intelligenceMod").innerHTML = "+" + characterObject.charIntMod;
-        } else {
-            document.getElementById("intelligenceMod").innerHTML = characterObject.charIntMod;
-        };
-
 
         characterObject.charTecScore = rollFunction(2, 13) + 5;
         document.getElementById("technologyScore").innerHTML = characterObject.charTecScore;
-        if (characterObject.charTecMod >= 0) {
-            document.getElementById("technologyMod").innerHTML = "+" + characterObject.charTecMod;
-        } else {
-            document.getElementById("technologyMod").innerHTML = characterObject.charTecMod;
-        };
-
 
         characterObject.charPeoScore = rollFunction(2, 13) + 5;
         document.getElementById("peopleScore").innerHTML = characterObject.charPeoScore;
-        if (characterObject.charPeoMod >= 0) {
-            document.getElementById("peopleMod").innerHTML = "+" + characterObject.charPeoMod;
-        } else {
-            document.getElementById("peopleMod").innerHTML = characterObject.charPeoMod;
-        };
 
         document.getElementById("abilityButton").style = "display: block";
 
@@ -605,7 +572,9 @@ window.onload = function () {
     //switch from origin screen to career screen
     document.getElementById("originButton").onclick = function () {
         assignOrigin();
-        characterObject.armorClass += characterObject.charDexMod;
+        if (characterObject.charDexMod < 0) {
+            characterObject.armorClass += characterObject.charDexMod;
+        }
         if (characterObject.origin === "Regular Joe") {
             regJoeASI();
         }
@@ -622,6 +591,7 @@ window.onload = function () {
         for (var skillCounter = 0; skillCounter < charAvailableSkills.length; skillCounter++) {
             var checkbox = document.createElement("input");
             var label = document.createElement("label");
+            var breakLine = document.createElement("br");
             checkbox.type = "checkbox";
             checkbox.className = "skillOption";
             checkbox.value = charAvailableSkills[skillCounter];
@@ -632,6 +602,7 @@ window.onload = function () {
             skillDiv.appendChild(checkbox);
             skillDiv.appendChild(label);
             label.appendChild(document.createTextNode(charAvailableSkills[skillCounter]));
+            skillDiv.appendChild(breakLine);
         };
         //display skill choice screen
         document.getElementById("skillContainer").style = "display: block";
@@ -700,9 +671,11 @@ window.onload = function () {
         getSelectedSkills();
         //document.getElementById("skillContainer").style = "display: none";
         document.getElementById("sheetContainer").style = "display: block";
+        //set name, origin, class and level section from characterObject
         document.getElementById("nameDisplay").innerHTML = characterObject.name;
         document.getElementById("originDisplay").innerHTML = characterObject.origin;
         document.getElementById("classDisplay").innerHTML = `${characterObject.class.title} ${characterObject.level}`;
+        //set ability scores and modifiers
         document.getElementById("CSstrengthScore").innerHTML = characterObject.charStrScore;
         document.getElementById("CSstrengthMod").innerHTML = characterObject.charStrMod;
         document.getElementById("CSdexterityScore").innerHTML = characterObject.charDexScore;
@@ -715,8 +688,11 @@ window.onload = function () {
         document.getElementById("CStechnologyMod").innerHTML = characterObject.charTecMod;
         document.getElementById("CSpeopleScore").innerHTML = characterObject.charPeoScore;
         document.getElementById("CSpeopleMod").innerHTML = characterObject.charPeoMod;
+        //set HP and AC
         document.getElementById("maxHPDisplay").innerHTML = characterObject.hitPoints;
+        document.getElementById("currentHPDisplay").innerHTML = characterObject.hitPoints;
         document.getElementById("ACDisplay").innerHTML = characterObject.armorClass;
+        //set traits from Origin in list format
         characterObject.traits.forEach(trait => {
             var traitDiv = document.getElementById("traitContainer");
             document.createElement("p");
@@ -725,7 +701,8 @@ window.onload = function () {
             traitDiv.appendChild(traitText);
             traitDiv.appendChild(breakLine);
         })
-        for (feature in characterObject.class.level1.features){
+        //set features from class with title and details
+        for (feature in characterObject.class.level1.features) {
             var featureDiv = document.getElementById("featureContainer");
             document.createElement("p");
             var breakLine = document.createElement("br");
@@ -733,26 +710,63 @@ window.onload = function () {
             featureDiv.appendChild(featureText);
             featureDiv.appendChild(breakLine);
         }
-        
-
-
-        allSkills.forEach(skill => {
-            if (characterObject.proficientSkills.includes(skill)) {
-                var skillBox = document.getElementById("skillsContainer");
-                document.createElement("p")
-                var breakLine = document.createElement("br");
-                var skillName = document.createTextNode(`${skill}*`);
-                skillBox.appendChild(skillName);
-                skillBox.appendChild(breakLine);
+        //set saving throw bonuses, checks for proficiency from class
+        if (characterObject.class.proficiencies.savingThrows.includes("Fortitude")) {
+            document.getElementById("fortSave").innerHTML = characterObject.charConMod + characterObject.proficiencyBonus;
+        } else {
+            document.getElementById("fortSave").innerHTML = characterObject.charConMod;
+        }
+        if (characterObject.class.proficiencies.savingThrows.includes("Reflex")) {
+            document.getElementById("refSave").innerHTML = characterObject.charDexMod + characterObject.proficiencyBonus;
+        } else {
+            document.getElementById("refSave").innerHTML = characterObject.charDexMod;
+        }
+        if (characterObject.class.proficiencies.savingThrows.includes("Mind")) {
+            document.getElementById("mindSave").innerHTML = characterObject.charIntMod + characterObject.proficiencyBonus;
+        } else {
+            document.getElementById("mindSave").innerHTML = characterObject.charIntMod;
+        }
+        //TODO set skill bonuses, checks for proficiency in character Object
+        document.querySelectorAll("td.strSkill").forEach(skill => {
+            
+            if (characterObject.proficientSkills.includes(skill.id)) {
+                skill.innerHTML = characterObject.charStrMod + characterObject.proficiencyBonus;
             } else {
-                var skillBox = document.getElementById("skillsContainer");
-                document.createElement("p")
-                var breakLine = document.createElement("br");
-                var skillName = document.createTextNode(`${skill}`);
-                skillBox.appendChild(skillName);
-                skillBox.appendChild(breakLine);
+                skill.innerHTML = characterObject.charStrMod;
             }
-        })
+        });
+        document.querySelectorAll("td.dexSkill").forEach(skill => {
+            
+            if (characterObject.proficientSkills.includes(skill.id)) {
+                skill.innerHTML = characterObject.charDexMod + characterObject.proficiencyBonus;
+            } else {
+                skill.innerHTML = characterObject.charDexMod;
+            }
+        });
+        document.querySelectorAll("td.intSkill").forEach(skill => {
+            
+            if (characterObject.proficientSkills.includes(skill.id)) {
+                skill.innerHTML = characterObject.charIntMod + characterObject.proficiencyBonus;
+            } else {
+                skill.innerHTML = characterObject.charIntMod;
+            }
+        });
+        document.querySelectorAll("td.tecSkill").forEach(skill => {
+            
+            if (characterObject.proficientSkills.includes(skill.id)) {
+                skill.innerHTML = characterObject.charTecMod + characterObject.proficiencyBonus;
+            } else {
+                skill.innerHTML = characterObject.charTecMod;
+            }
+        });
+        document.querySelectorAll("td.peoSkill").forEach(skill => {
+            
+            if (characterObject.proficientSkills.includes(skill.id)) {
+                skill.innerHTML = characterObject.charPeoMod + characterObject.proficiencyBonus;
+            } else {
+                skill.innerHTML = characterObject.charPeoMod;
+            }
+        });
     };
 
 }

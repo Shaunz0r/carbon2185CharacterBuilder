@@ -12,22 +12,16 @@
         <button id="abilityScoreButton">Roll</button>
         <h2>Strength:</h2>
         <h2 class="abilityScoreDisplay" id="strengthScore">0</h2>
-        <h3 class=abilityModDisplay id="strengthMod">0</h3>
         <h2>Dexterity</h2>
         <h2 class="abilityScoreDisplay" id="dexterityScore">0</h2>
-        <h3 class=abilityModDisplay id="dexterityMod">0</h3>
         <h2>Constitution</h2>
         <h2 class="abilityScoreDisplay" id="constitutionScore">0</h2>
-        <h3 class=abilityModDisplay id="constitutionMod">0</h3>
         <h2>Intelligence</h2>
         <h2 class="abilityScoreDisplay" id="intelligenceScore">0</h2>
-        <h3 class=abilityModDisplay id="intelligenceMod">0</h3>
         <h2>Technology</h2>
         <h2 class="abilityScoreDisplay" id="technologyScore">0</h2>
-        <h3 class=abilityModDisplay id="technologyMod">0</h3>
         <h2>People</h2>
         <h2 class="abilityScoreDisplay" id="peopleScore">0</h2>
-        <h3 class=abilityModDisplay id="peopleMod">0</h3>
         <Button id="abilityButton">Finalize Ability Scores</Button>
     </div>
     <div class="container" id="originContainer">
@@ -86,17 +80,17 @@
     <div class="container" id="RegJoeChoiceContainer">
         <h3>Regular Joe Ability Score Choice</h3>
         <h4>Select 2 to increase</h4>
-        <input type="checkbox" id="strIncrease" value="charStrScore">
+        <input type="checkbox" id="rjstrIncrease" value="charStrScore">
         <label for="strIncrease">Strength</label><br>
-        <input type="checkbox" id="dexIncrease" value="charDexScore">
+        <input type="checkbox" id="rjdexIncrease" value="charDexScore">
         <label for="dexIncrease">Dexterity</label><br>
-        <input type="checkbox" id="conIncrease" value="charConScore">
+        <input type="checkbox" id="rjconIncrease" value="charConScore">
         <label for="conIncrease">Constitution</label><br>
-        <input type="checkbox" id="intIncrease" value="charIntScore">
+        <input type="checkbox" id="rjintIncrease" value="charIntScore">
         <label for="intIncrease">Intelligence</label><br>
-        <input type="checkbox" id="tecIncrease" value="charTecScore">
+        <input type="checkbox" id="rjtecIncrease" value="charTecScore">
         <label for="tecIncrease">Technology</label><br>
-        <input type="checkbox" id="peoIncrease" value="charPeoScore">
+        <input type="checkbox" id="rjpeoIncrease" value="charPeoScore">
         <label for="peoIncrease">People</label><br>
         <button id="RegJoeSubmit">Submit</button>
     </div>
@@ -138,8 +132,10 @@
 
     <div class="container" id="sheetContainer">
         <div class="container" id="characterBioContainer">
-            <p class="infoDisplay" id="nameDisplay">Name</p><p class="infoDisplay" id="classDisplay">Class & Level</p><br>
-            <p class="infoDisplay" id="originDisplay">Origin</p><p class="infoDisplay" id="xpDisplay">Experience Points</p>
+            <p class="infoDisplay" id="nameDisplay">Name</p>
+            <p class="infoDisplay" id="classDisplay">Class & Level</p><br>
+            <p class="infoDisplay" id="originDisplay">Origin</p>
+            <p class="infoDisplay" id="xpDisplay">Experience Points</p>
         </div>
         <div class="container" id="sheetAbilityScoreContainer">
             <div class="ASDisplay">
@@ -175,6 +171,36 @@
         </div>
         <div class="container" id="savesContainer">
             <h2>Saving Throws</h2>
+            <table>
+                <tr>
+                    <th>Save</th>
+                    <th>Bonus</th>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Fortitude</h3>
+                    </td>
+                    <td align="center">
+                        <h3 class="saveDisplay" id="fortSave"></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Reflex</h3>
+                    </td>
+                    <td align="center">
+                        <h3 class="saveDisplay" id="refSave"></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Mind</h3>
+                    </td>
+                    <td align="center">
+                        <h3 class="saveDisplay" id="mindSave"></h3>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="container" id="traitContainer">
@@ -183,10 +209,179 @@
         <div class="container" id="featureContainer">
             <h2>Class Features</h2>
         </div>
-        
+
 
         <div class="container" id="skillsContainer">
-            <h2>Skills</h2>
+            <table>
+                <h2>Skills</h2>
+                <tr>
+                    <th>Skill</th>
+                    <th>Bonus</th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Acrobatics</p>
+                    </td>
+                    <td align="center" class="dexSkill" id="Acrobatics"></td>
+                <tr>
+                    <td>
+                        <p>Athletics</p>
+                    </td>
+                    <td align="center" class="strSkill" id="Athletics"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Bureaucracy</p>
+                    </td>
+                    <td align="center" class="peoSkill" id="Bureaucracy"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Computing</p>
+                    </td>
+                    <td align="center" class="tecSkill" id="Computing"></td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <p>Deception</p>
+                    </td>
+                    <td align="center" class="peoSkill" id="Deception"></td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <p>Engineering</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Engineering"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Gambling</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Gambling"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Hacking</p>
+                    </td>
+                    <td align="center" class="tecSkill" id="Hacking" </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>History</p>
+                    </td>
+                    <td align="center" class="intSkill" id="History"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Intimidation</p>
+                    </td>
+                    <td align="center" class="strSkill" id="Intimidation"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Investigation</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Investigation"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Mechanics</p>
+                    </td>
+                    <td align="center" class="tecSkill" id="Mechanics"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Medicine</p>
+                    </td>
+                    <td align="center" class="tecSkill" id="Medicine"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Navigation</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Navigation"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Perception</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Perception"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Performance</p>
+                    </td>
+                    <td align="center" class="peoSkill" id="Performance"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Persuasion</p>
+                    </td>
+                    <td align="center" class="peoSkill" id="Persuasion"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Presence</p>
+                    </td>
+                    <td align="center" class="peoSkill" id="Presence"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Religion</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Religion"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Robotics</p>
+                    </td>
+                    <td align="center" class="tecSkill" id="Robotics"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Sense Motive</p>
+                    </td>
+                    <td align="center" class="peoSkill" id="Sense Motive"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Sleight of Hand</p>
+                    </td>
+                    <td align="center" class="dexSkill" id="Sleight of Hand"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Stealth</p>
+                    </td>
+                    <td align="center" class="dexSkill" id="Stealth"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Streetwise</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Streetwise"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Tracking</p>
+                    </td>
+                    <td align="center" class="intSkill" id="Tracking"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Vehicles (Aircraft)</p>
+                    </td>
+                    <td align="center" class="tecSkill" id="Vehicles (Aircraft)"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Vehicles (Land)</p>
+                    </td>
+                    <td align="center" class="dexSkill" id="Vehicles (Land)"></td>
+                </tr>
+            </table>
         </div>
         <div class="container" id="combatContainer">
             <div class="container" id="ACContainer">
